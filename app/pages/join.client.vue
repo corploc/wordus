@@ -29,8 +29,27 @@
           <label for="username" class="block mb-3 text-center text-base font-medium text-word-font-fill">
             Choisis ton pseudo !
           </label>
-          <input id="username" v-model="username" type="text" placeholder="..." maxlength="15"
-            class="w-full px-4 py-3 bg-gray-700 text-white text-center rounded-lg border border-gray-600 focus:outline-none focus:border-player-yellow" />
+          <div class="relative w-full">
+            <input
+              id="username"
+              v-model="username"
+              type="text"
+              placeholder="Clique sur l'icône pour générer →"
+              maxlength="15"
+              class="w-full px-4 py-3 pr-12 bg-gray-700 text-white text-center rounded-lg border border-gray-600 focus:outline-none focus:border-player-yellow"
+            />
+            <!-- Random username icon button -->
+            <button
+              @click="randomizeUsername"
+              type="button"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition"
+              title="Générer un pseudo aléatoire"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd" />
+              </svg>
+            </button>
+          </div>
         </div>
       </section>
     </div>
@@ -38,6 +57,8 @@
 </template>
 
 <script setup lang="ts">
+import { generateRandomUsername } from '~/utils/username'
+
 const toast = useToast()
 const route = useRoute()
 const router = useRouter()
@@ -72,6 +93,10 @@ const avatarColor = ref(colorList[0])
 const randomizeAvatar = () => {
   avatar.value = avatarList[Math.floor(Math.random() * avatarList.length)]
   avatarColor.value = colorList[Math.floor(Math.random() * colorList.length)]
+}
+
+const randomizeUsername = () => {
+  username.value = generateRandomUsername()
 }
 
 // Join Room Handler
