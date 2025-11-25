@@ -162,7 +162,10 @@ export const useGameStore = defineStore('game', () => {
     })
   }
 
-  const handleError = (errorMessage: string) => {
+  const handleError = (errorData: string | { message: string }) => {
+    // Handle both string and object error formats
+    const errorMessage = typeof errorData === 'string' ? errorData : errorData.message
+
     console.error('[Socket] Error:', errorMessage)
     error.value = errorMessage
 
