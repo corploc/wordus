@@ -23,8 +23,8 @@
       </div>
       <!-- Combo bar -->
       <div class="w-full bg-gray-700 h-1 mt-2 rounded-full overflow-hidden">
-        <div class="h-full bg-player-yellow transition-all duration-300"
-          :style="{ width: `${Math.min(player.combo * 25, 100)}%` }"></div>
+        <div class="h-full transition-all duration-300"
+          :style="{ width: `${Math.min(player.combo * 25, 100)}%`, backgroundColor: playerColor }"></div>
       </div>
     </div>
   </div>
