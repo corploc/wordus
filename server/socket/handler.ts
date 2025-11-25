@@ -1,7 +1,7 @@
 import type { Server, Socket } from 'socket.io'
 import { createUser, removeUser } from '../utils/user'
 import { createRoom, joinRoom, leaveRoom, rejoinRoom } from '../utils/room'
-import { startGame, handleInput } from '../utils/game'
+import { startGame, handleInput, validateWord } from '../utils/game'
 import { getUser, getRoom } from '../utils/state'
 
 // Track timer intervals per room to prevent multiple intervals
@@ -137,6 +137,38 @@ export const registerSocketHandlers = (io: Server) => {
       }
 
       io.to(room.id).emit('refresh_room', room) // Sync full state
+    })
+
+    socket.on('submit_word', (data: { word: string }) => {
+      console.log('Submit word:', data)
+
+      const user = getUser(socket.id)
+      if (!user || !user.room) return
+
+      const room = getRoom(user.room)
+      if (!room || room.state !== 'PLAYING') return
+
+      const result = validateWord(room, user, data.word)
+
+      // Send result back to submitting user
+      socket.emit('word_result', {
+        correct: result.correct,
+        word: data.word,
+        points: result.points,
+        newScore: user.score,
+        newCombo: user.combo
+      })
+
+      if (result.correct && result.completedWord) {
+        io.to(room.id).emit('word_finish', {
+          word: result.completedWord,
+          user_id: user.id,
+          score: user.score,
+          combo: user.combo
+        })
+      }
+
+      io.to(room.id).emit('refresh_room', room)
     })
 
     socket.on('rejoin_room', (data: { sessionId: string, roomCode: string }) => {

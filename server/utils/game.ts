@@ -87,38 +87,54 @@ export const handleInput = (room: Room, user: User, input: string) => {
   targetWord.owner = primaryOwner
   targetWord.typed = longestTyped
 
-  // Check if word is completed
-  if (input === targetWord.text) {
-    completeWord(room, user, targetWord)
-    return { type: 'word_finish', word: targetWord }
-  }
-
+  // No auto-completion - just return update for tracking
   return { type: 'update_letter', word: targetWord }
 }
 
-const completeWord = (room: Room, user: User, word: Word) => {
-  // Calculate score
-  const points = word.text.length
-  let multiplier = 1
-  if (user.combo >= 1) multiplier = 1.5
-  if (user.combo >= 2) multiplier = 2
-  if (user.combo >= 3) multiplier = 2.5
-  if (user.combo >= 4) multiplier = 3
+export const validateWord = (room: Room, user: User, submittedWord: string) => {
+  const matchingWord = room.words.find(w => w.text === submittedWord)
 
-  user.score += Math.floor(points * multiplier)
-  user.combo++
+  if (matchingWord) {
+    // CORRECT - Award points
+    const points = matchingWord.text.length
+    let multiplier = 1
+    if (user.combo >= 1) multiplier = 1.5
+    if (user.combo >= 2) multiplier = 2
+    if (user.combo >= 3) multiplier = 2.5
+    if (user.combo >= 4) multiplier = 3
 
-  // Reset combo for other users who were typing this word (they lost the race)
-  word.typingUsers?.forEach(tu => {
-    if (tu.userId !== user.id) {
-      const otherUser = room.users.find(u => u.id === tu.userId)
-      if (otherUser) {
-        otherUser.combo = 0
+    const earnedPoints = Math.floor(points * multiplier)
+    user.score += earnedPoints
+    user.combo++
+
+    // Reset combo for other users who were typing this word (they lost the race)
+    matchingWord.typingUsers?.forEach(tu => {
+      if (tu.userId !== user.id) {
+        const otherUser = room.users.find(u => u.id === tu.userId)
+        if (otherUser) {
+          otherUser.combo = 0
+        }
       }
-    }
-  })
+    })
 
-  // Remove word and generate new one
-  room.words = room.words.filter(w => w.id !== word.id)
-  room.words.push(generateWord(room.settings.language, room.words))
+    // Remove word and generate new one
+    room.words = room.words.filter(w => w.id !== matchingWord.id)
+    room.words.push(generateWord(room.settings.language, room.words))
+
+    return {
+      correct: true,
+      points: earnedPoints,
+      completedWord: matchingWord
+    }
+  } else {
+    // WRONG - Apply penalty
+    const penalty = submittedWord.length
+    user.score = Math.max(0, user.score - penalty)
+    user.combo = 0
+
+    return {
+      correct: false,
+      points: -penalty
+    }
+  }
 }

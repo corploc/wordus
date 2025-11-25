@@ -96,6 +96,7 @@ export const useGameStore = defineStore('game', () => {
     socket.on('game_started', handleGameStarted)
     socket.on('update_time', handleUpdateTime)
     socket.on('word_finish', handleWordFinish)
+    socket.on('word_result', handleWordResult)
     socket.on('update_letter', handleUpdateLetter)
     socket.on('game_finish', handleGameFinish)
 
@@ -125,6 +126,7 @@ export const useGameStore = defineStore('game', () => {
     socket.off('game_started', handleGameStarted)
     socket.off('update_time', handleUpdateTime)
     socket.off('word_finish', handleWordFinish)
+    socket.off('word_result', handleWordResult)
     socket.off('update_letter', handleUpdateLetter)
     socket.off('game_finish', handleGameFinish)
     socket.off('success_create_user', handleSuccessCreateUser)
@@ -204,6 +206,34 @@ export const useGameStore = defineStore('game', () => {
   const handleWordFinish = (data: { word_id: string, user_id: string }) => {
     console.log('[Socket] Word finished', data)
     // Additional logic can be added here if needed
+  }
+
+  const handleWordResult = (data: {
+    correct: boolean
+    word: string
+    points: number
+    newScore: number
+    newCombo: number
+  }) => {
+    console.log('[Socket] Word result', data)
+
+    // Update local user snapshot immediately
+    if (user.value) {
+      user.value.score = data.newScore
+      user.value.combo = data.newCombo
+    }
+
+    if (data.correct) {
+      toast?.success({
+        title: 'Correct!',
+        message: `+${data.points} points`
+      })
+    } else {
+      toast?.error({
+        title: 'Incorrect!',
+        message: `${data.points} points`
+      })
+    }
   }
 
   const handleUpdateLetter = (data: { word_id: string, typed: string, user_id: string }) => {
@@ -349,6 +379,16 @@ export const useGameStore = defineStore('game', () => {
     socket.emit('start_game', { settings })
   }
 
+  const submitWord = (word: string) => {
+    if (!socket) {
+      console.error('[GameStore] Cannot submit word: socket is null')
+      return
+    }
+
+    console.log('[GameStore] Submitting word:', word)
+    socket.emit('submit_word', { word })
+  }
+
   const sendInput = (input: string) => {
     if (!socket) {
       console.error('[GameStore] Cannot send input: socket is null')
@@ -379,6 +419,7 @@ export const useGameStore = defineStore('game', () => {
     createRoom,
     startGame,
     restartGame,
+    submitWord,
     sendInput
   }
 })
