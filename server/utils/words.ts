@@ -35,19 +35,24 @@ export const generateWord = (language: 'en' | 'fr' | 'lat', existingWords: Word[
       (attempts < 50 && usedFirstLetters.has(wordText.charAt(0).toLowerCase())))
   )
 
-  // Generate random position (1-20 grid)
-  // Ensure no overlap with existing positions
-  const usedPositions = new Set(existingWords.map(w => w.x + ',' + w.y)) // Simplified position check
-  let pos = 0
-  do {
-    pos = Math.floor(Math.random() * 20) + 1
-  } while (false) // TODO: Implement proper position collision logic
+  // Pick an available position on the 4x5 grid (1..20) without overlap
+  const maxCells = 20
+  const usedPositions = new Set(existingWords.map(w => w.x))
+  const availablePositions: number[] = []
+  for (let i = 1; i <= maxCells; i++) {
+    if (!usedPositions.has(i)) availablePositions.push(i)
+  }
+
+  // Fallback: if grid is somehow full, reuse a random cell
+  const pos = availablePositions.length > 0
+    ? availablePositions[Math.floor(Math.random() * availablePositions.length)]
+    : Math.floor(Math.random() * maxCells) + 1
 
   return {
     id: Math.random().toString(36).substr(2, 9),
     text: wordText,
-    x: pos, // Placeholder for now
-    y: 0,
+    x: pos,
+    y: Math.ceil(pos / 4),
     typed: '',
     owner: null,
     typingUsers: []
