@@ -245,7 +245,7 @@ export const useGameStore = defineStore('game', () => {
       title: 'Room created',
       message: `You have created room ${data.room_id}`
     })
-    router?.push(`/game/${data.room_id}`)
+    router?.push(`/game`)
   }
 
   const handleSuccessJoin = (data: { room: Room }) => {
@@ -259,7 +259,7 @@ export const useGameStore = defineStore('game', () => {
       title: 'Joined room',
       message: `You have joined room ${data.room.id}`
     })
-    router?.push(`/game/${data.room.id}`)
+    router?.push(`/game`)
   }
 
   const handleSuccessRejoin = (data: { room: Room; user: User }) => {
@@ -274,8 +274,8 @@ export const useGameStore = defineStore('game', () => {
 
     // Navigate to game page if not already there
     const currentPath = router?.currentRoute.value.path
-    if (!currentPath?.includes(`/game/${data.room.id}`)) {
-      router?.push(`/game/${data.room.id}`)
+    if (!currentPath?.includes(`/game`)) {
+      router?.push(`/game`)
     }
   }
 

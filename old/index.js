@@ -1,5 +1,6 @@
 const express = require('express');
-const https =  require('https')
+// const https =  require('https')
+const http = require('http')
 const { Server } = require("socket.io");
 const uuid4 = require('uuid4');
 const fs = require('fs')
@@ -7,10 +8,12 @@ const path = require('path')
 
 const app = express();
 
-const server = https.createServer({
-    key: fs.readFileSync(path.join(__dirname, 'cert', 'wordus.xyz.key.pem')),
-    cert: fs.readFileSync(path.join(__dirname, 'cert', 'wordus.xyz.cert.pem'))
-},app);
+// const server = https.createServer({
+//     key: fs.readFileSync(path.join(__dirname, 'cert', 'wordus.xyz.key.pem')),
+//     cert: fs.readFileSync(path.join(__dirname, 'cert', 'wordus.xyz.cert.pem'))
+// },app);
+
+const server = http.createServer(app);
 
 const io = new Server(server);
 
@@ -369,6 +372,6 @@ io.on('connection', socket => {
     })
 });
 
-server.listen(443, () => {
+server.listen(4000, () => {
     console.log('server running on port 443')
 });

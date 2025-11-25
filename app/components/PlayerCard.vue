@@ -1,22 +1,23 @@
 <template>
-  <div class="player_box flex mt-4 items-center rounded-lg p-2 transition-all"
-       :class="{ 'ring-2 ring-player-yellow bg-gray-800/30': props.isCurrentUser }">
-    <div class="player-picture rounded-full w-auto flex items-center -ml-[5%] p-1"
-      :style="{ backgroundColor: playerColor }">
-      <img :src="`/images/avatars/${player.avatar}`" class="h-20 rounded-full bg-white border-[1px]"
+  <div class="player_box flex mt-4 items-center rounded-lg p-2 transition-all h-min"
+    :class="{ 'ring-2 bg-gray-800/30': props.isCurrentUser }" :style="{
+      borderColor: playerColor
+    }">
+    <div class="player-picture rounded-full w-auto flex items-center p-1" :style="{ backgroundColor: playerColor }">
+      <img :src="`/images/avatars/${player.avatar}`" class="rounded-full bg-white border-[1px]" :class="avatarSizeClass"
         :style="{ borderColor: playerColor }" alt="Player avatar" />
     </div>
 
     <div class="player-infos ml-4">
-      <p class="player-name text-2xl font-medium text-white">
+      <p class="player-name font-medium text-white" :class="textSizeClass">
         {{ player.username }}
         <span v-if="player.isOwner" class="ml-2 text-yellow-400">👑</span>
       </p>
       <div class="flex items-end gap-3 mt-2">
-        <p class="player-score text-2xl font-medium text-white">
+        <p class="player-score font-medium text-white" :class="scoreSizeClass">
           {{ player.score }} pts
         </p>
-        <p v-if="player.combo > 0" class="text-sm text-gray-300">
+        <p v-if="player.combo > 0" class="text-gray-300" :class="comboSizeClass">
           x{{ getMultiplier(player.combo) }}
         </p>
       </div>
@@ -34,6 +35,7 @@ import type { User } from '~/types'
 
 interface Props {
   player: User
+  size: 'small' | 'medium' | 'large'
   isCurrentUser?: boolean
 }
 
@@ -58,4 +60,56 @@ const getMultiplier = (combo: number) => {
   if (combo >= 1) return 1.5
   return 1
 }
+
+const textSizeClass = computed(() => {
+  switch (props.size) {
+    case 'small':
+      return 'text-sm'
+    case 'medium':
+      return 'text-lg'
+    case 'large':
+      return 'text-2xl'
+    default:
+      return 'text-base'
+  }
+})
+
+const scoreSizeClass = computed(() => {
+  switch (props.size) {
+    case 'small':
+      return 'text-base'
+    case 'medium':
+      return 'text-xl'
+    case 'large':
+      return 'text-2xl'
+    default:
+      return 'text-base'
+  }
+})
+
+const comboSizeClass = computed(() => {
+  switch (props.size) {
+    case 'small':
+      return 'text-xs'
+    case 'medium':
+      return 'text-sm'
+    case 'large':
+      return 'text-base'
+    default:
+      return 'text-xs'
+  }
+})
+
+const avatarSizeClass = computed(() => {
+  switch (props.size) {
+    case 'small':
+      return 'h-10'
+    case 'medium':
+      return 'h-16'
+    case 'large':
+      return 'h-20'
+    default:
+      return 'h-10'
+  }
+})
 </script>
