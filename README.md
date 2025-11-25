@@ -1,37 +1,75 @@
-![Guemjamme](https://user-images.githubusercontent.com/44942598/121183900-d6be1b80-c864-11eb-9491-651835ae6d04.png)
+# Nuxt Minimal Starter
 
-Guemjamme 2021 takes place here and now!
+Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-# Installation
+## Setup
 
-This project requires NodeJS (with NPM installed).
-For the first installation, you need to execute ``npm install`` in order to install the NPM modules used in the project.
+Make sure to install dependencies:
 
-After editing the JavaScript files, (client/game.js, client/index.js, client/join.js) you need to use Borwserify to bundle those.
-In order to do that, you need to execute ``browserify input-file -o output-file``, where ``input-file`` is to be replaced by each JavaScript file contained in the ``js/client/`` folder (the output file name is the same as the original name, with "_bundle" added as a suffix, in the same folder).
+```bash
+# npm
+npm install
 
-> EX : Editing js/client/game.js  
-> ``browserify js/client/game.js -o js/cient/game_bundle.js``
+# pnpm
+pnpm install
 
-# About Game
+# yarn
+yarn install
 
-Play the game here https://wordus.xyz
+# bun
+bun install
+```
 
-The concept of this game is to type as fast as possible and as many **Latin** / **French** / **English** words as possible in the time allotted at the beginning of the game.
+## Development Server
 
-During the game the words are chosen randomly from a bank of **2600 Latin words**, **68000 English words**, **320000 French words**.  
+Start the development server on `http://localhost:3000`:
 
-If a word is well written it will bring back points once the key ``ENTER`` is pressed but for that you will have to be the **fastest** to type it.  
+```bash
+# npm
+npm run dev
 
-The number of players per game is limited to 6 in order to keep the game simple and easy on the eyes.  
+# pnpm
+pnpm dev
 
-You will be able to choose to give yourself time by putting up to **3 minutes** or on the contrary to test your capacity to type on computer by giving you only **30 seconds**.  
+# yarn
+yarn dev
 
-You can also change the number of words that appear on the screen at the beginning of the game **between 1 to 8**.  
+# bun
+bun run dev
+```
 
-We recommend that you set a small number of words if you have a lot of players.  
+## Production
 
-If you are not convinced of the preferences you can change them at the end of the game before starting a new one.
+Build the application for production:
 
-In case of bug or error please contact by discord ``Hokanosekai#0001``.
+```bash
+# npm
+npm run build
 
+# pnpm
+pnpm build
+
+# yarn
+yarn build
+
+# bun
+bun run build
+```
+
+Locally preview production build:
+
+```bash
+# npm
+npm run preview
+
+# pnpm
+pnpm preview
+
+# yarn
+yarn preview
+
+# bun
+bun run preview
+```
+
+Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
