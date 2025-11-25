@@ -1,5 +1,6 @@
 export interface User {
   id: string;
+  sessionId: string;
   username: string;
   avatar: string;
   color: string;

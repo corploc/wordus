@@ -20,7 +20,7 @@
   <main>
     <div class="max-w-7xl mx-auto px-4 py-8">
       <div v-if="!room" class="text-center text-white">
-        <p class="text-2xl">Chargement de la partie...</p>
+        <p class="text-2xl">{{ isReconnecting ? 'Reconnexion en cours...' : 'Chargement de la partie...' }}</p>
       </div>
 
       <!-- LOBBY STATE: Waiting for game to start -->
@@ -165,6 +165,7 @@ const roomCode = route.params.code as string
 
 // Access room from store reactively
 const room = computed(() => gameStore.room)
+const isReconnecting = ref(false)
 const currentInput = ref('')
 const newDuration = ref(60)
 const newWordCount = ref(5)
@@ -256,10 +257,24 @@ watch(currentInput, (newVal) => {
   }
 })
 
+// Watch for room data to arrive
+watch(() => room.value, (newRoom) => {
+  if (newRoom && isReconnecting.value) {
+    isReconnecting.value = false
+    console.log('[Game Page] Reconnection successful')
+  }
+})
+
 onMounted(() => {
   console.log('[Game Page] Mounted')
   console.log('[Game Page] Room:', gameStore.room)
   console.log('[Game Page] User:', gameStore.user)
+
+  // If no room data, we might be reconnecting
+  if (!gameStore.room) {
+    isReconnecting.value = true
+    console.log('[Game Page] No room data, waiting for reconnection...')
+  }
 
   // All socket events are now handled in the game store
   // Room state updates automatically via reactive computed property

@@ -1,6 +1,6 @@
 import type { Server, Socket } from 'socket.io'
 import { createUser, removeUser } from '../utils/user'
-import { createRoom, joinRoom, leaveRoom } from '../utils/room'
+import { createRoom, joinRoom, leaveRoom, rejoinRoom } from '../utils/room'
 import { startGame, handleInput } from '../utils/game'
 import { getUser, getRoom } from '../utils/state'
 
@@ -10,10 +10,10 @@ export const registerSocketHandlers = (io: Server) => {
   io.on('connection', (socket: Socket) => {
     console.log('User connected:', socket.id)
 
-    socket.on('create_user', (data: { username: string, avatar?: string, color?: string }) => {
+    socket.on('create_user', (data: { username: string, avatar?: string, color?: string, sessionId?: string }) => {
       console.log('Create user:', data)
 
-      const user = createUser(data.username, socket.id, data.avatar, data.color)
+      const user = createUser(data.username, socket.id, data.avatar, data.color, data.sessionId)
 
       socket.emit('success_create_user', { user })
     })
@@ -109,14 +109,47 @@ export const registerSocketHandlers = (io: Server) => {
       }
     })
 
+    socket.on('rejoin_room', (data: { sessionId: string, roomCode: string }) => {
+      console.log('Rejoin room:', data)
+
+      const result = rejoinRoom(data.sessionId, data.roomCode, socket.id)
+
+      if (result.success && result.room && result.user) {
+        // Join socket.io room
+        socket.join(result.room.id)
+
+        // Send success response
+        socket.emit('success_rejoin', {
+          room: result.room,
+          user: result.user
+        })
+
+        // Notify other users in room
+        io.to(result.room.id).emit('refresh_room', result.room)
+      } else {
+        socket.emit('error', result.error || 'Failed to rejoin room')
+      }
+    })
+
     socket.on('disconnect', () => {
       console.log('User disconnected:', socket.id)
-      const room = leaveRoom(socket.id)
-      removeUser(socket.id)
 
-      if (room) {
-        io.to(room.id).emit('refresh_room', room)
-      }
+      const user = getUser(socket.id)
+      if (!user) return
+
+      // Add grace period before removing user (allows for page refresh)
+      setTimeout(() => {
+        const stillDisconnected = !getUser(socket.id)
+        if (stillDisconnected && user) {
+          console.log('User did not reconnect, removing:', socket.id)
+          const room = leaveRoom(socket.id)
+          removeUser(socket.id)
+
+          if (room) {
+            io.to(room.id).emit('refresh_room', room)
+          }
+        }
+      }, 10000) // 10 second grace period
     })
   })
 }

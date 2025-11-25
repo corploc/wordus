@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import type { Socket } from 'socket.io-client'
 import type { Room, User, RoomSettings, Word } from '~/types'
+import { loadSession, saveSession, clearSession, updateRoomCode, getOrCreateSessionId } from '~/utils/session'
 
 export const useGameStore = defineStore('game', () => {
   // State
@@ -31,16 +32,49 @@ export const useGameStore = defineStore('game', () => {
     router = useRouter()
     toast = useToast()
 
+    // Set up all socket event listeners FIRST
+    setupSocketListeners()
+
     // Check if socket is already connected (since autoConnect: true)
     if (socket.connected) {
       console.log('[GameStore] Socket already connected')
       isConnected.value = true
+
+      // Attempt to restore session (listeners are now ready)
+      attemptSessionRestore()
     }
 
-    // Set up all socket event listeners
-    setupSocketListeners()
-
     console.log('[GameStore] Socket initialized and listeners attached')
+  }
+
+  /**
+   * Attempt to restore session from localStorage
+   */
+  const attemptSessionRestore = () => {
+    if (!socket) {
+      console.error('[GameStore] Cannot restore session: socket is null')
+      return
+    }
+
+    const session = loadSession()
+    if (!session || !session.currentRoomCode) {
+      console.log('[GameStore] No session to restore')
+      return
+    }
+
+    console.log('[GameStore] Attempting to restore session:', {
+      sessionId: session.sessionId,
+      roomCode: session.currentRoomCode,
+      username: session.username
+    })
+
+    // Emit rejoin event
+    socket.emit('rejoin_room', {
+      sessionId: session.sessionId,
+      roomCode: session.currentRoomCode
+    })
+
+    console.log('[GameStore] Rejoin room event emitted')
   }
 
   /**
@@ -69,6 +103,7 @@ export const useGameStore = defineStore('game', () => {
     socket.on('success_create_user', handleSuccessCreateUser)
     socket.on('success_host_room', handleSuccessHostRoom)
     socket.on('success_join', handleSuccessJoin)
+    socket.on('success_rejoin', handleSuccessRejoin)
 
     console.log('[GameStore] All socket listeners attached')
   }
@@ -95,6 +130,7 @@ export const useGameStore = defineStore('game', () => {
     socket.off('success_create_user', handleSuccessCreateUser)
     socket.off('success_host_room', handleSuccessHostRoom)
     socket.off('success_join', handleSuccessJoin)
+    socket.off('success_rejoin', handleSuccessRejoin)
 
     console.log('[GameStore] Socket listeners cleaned up')
   }
@@ -106,6 +142,10 @@ export const useGameStore = defineStore('game', () => {
   const handleConnect = () => {
     console.log('[Socket] Connected')
     isConnected.value = true
+
+    // Attempt to restore session when socket connects
+    attemptSessionRestore()
+
     toast?.info({
       title: 'Connected',
       message: 'You have been connected to the server'
@@ -115,6 +155,7 @@ export const useGameStore = defineStore('game', () => {
   const handleDisconnect = () => {
     console.log('[Socket] Disconnected')
     isConnected.value = false
+    // Don't clear session - we want to rejoin on reconnect
     toast?.info({
       title: 'Disconnected',
       message: 'You have been disconnected from the server'
@@ -124,6 +165,14 @@ export const useGameStore = defineStore('game', () => {
   const handleError = (errorMessage: string) => {
     console.error('[Socket] Error:', errorMessage)
     error.value = errorMessage
+
+    // If room not found during rejoin, clear session
+    if (errorMessage.includes('Room not found') || errorMessage.includes('not found in room')) {
+      console.log('[Socket] Room no longer exists, clearing session')
+      clearSession()
+      router?.push('/')
+    }
+
     toast?.error({
       title: 'Error',
       message: errorMessage
@@ -169,6 +218,17 @@ export const useGameStore = defineStore('game', () => {
   const handleSuccessCreateUser = (data: { user: User }) => {
     console.log('[Socket] User created', data)
     user.value = data.user
+
+    // Save session to localStorage
+    saveSession({
+      sessionId: data.user.sessionId,
+      username: data.user.username,
+      avatar: data.user.avatar,
+      color: data.user.color,
+      currentRoomCode: null,
+      timestamp: Date.now()
+    })
+
     toast?.success({
       title: 'User created',
       message: 'You have been created'
@@ -177,6 +237,10 @@ export const useGameStore = defineStore('game', () => {
 
   const handleSuccessHostRoom = (data: { room_id: string }) => {
     console.log('[Socket] Room created', data)
+
+    // Update room code in localStorage
+    updateRoomCode(data.room_id)
+
     toast?.success({
       title: 'Room created',
       message: `You have created room ${data.room_id}`
@@ -187,11 +251,32 @@ export const useGameStore = defineStore('game', () => {
   const handleSuccessJoin = (data: { room: Room }) => {
     console.log('[Socket] Joined room', data)
     room.value = data.room
+
+    // Update room code in localStorage
+    updateRoomCode(data.room.id)
+
     toast?.success({
       title: 'Joined room',
       message: `You have joined room ${data.room.id}`
     })
     router?.push(`/game/${data.room.id}`)
+  }
+
+  const handleSuccessRejoin = (data: { room: Room; user: User }) => {
+    console.log('[Socket] Successfully rejoined room', data)
+    room.value = data.room
+    user.value = data.user
+
+    toast?.success({
+      title: 'Reconnected',
+      message: 'You have been reconnected to the room'
+    })
+
+    // Navigate to game page if not already there
+    const currentPath = router?.currentRoute.value.path
+    if (!currentPath?.includes(`/game/${data.room.id}`)) {
+      router?.push(`/game/${data.room.id}`)
+    }
   }
 
   // ======================
@@ -204,8 +289,11 @@ export const useGameStore = defineStore('game', () => {
       return
     }
 
-    console.log('[GameStore] Creating user:', { username, avatar, color })
-    socket.emit('create_user', { username, avatar, color })
+    // Get or create session ID
+    const sessionId = getOrCreateSessionId()
+
+    console.log('[GameStore] Creating user:', { username, avatar, color, sessionId })
+    socket.emit('create_user', { username, avatar, color, sessionId })
   }
 
   const joinRoom = (code: string, username: string) => {

@@ -19,9 +19,13 @@ const COLORS = [
   '#A0522D'  // Brown
 ]
 
-export const createUser = (username: string, socketId: string, avatar?: string, color?: string): User => {
+export const createUser = (username: string, socketId: string, avatar?: string, color?: string, sessionId?: string): User => {
+  // Generate sessionId if not provided
+  const finalSessionId = sessionId || uuidv4()
+
   const user: User = {
     id: socketId,
+    sessionId: finalSessionId,
     username: username,
     avatar: avatar || AVATARS[Math.floor(Math.random() * AVATARS.length)],
     color: color || COLORS[Math.floor(Math.random() * COLORS.length)],
@@ -31,6 +35,22 @@ export const createUser = (username: string, socketId: string, avatar?: string, 
     isOwner: false
   }
   state.users[socketId] = user
+  return user
+}
+
+export const findUserBySession = (sessionId: string): User | undefined => {
+  return Object.values(state.users).find(u => u.sessionId === sessionId)
+}
+
+export const updateUserSocketId = (oldSocketId: string, newSocketId: string): User | null => {
+  const user = state.users[oldSocketId]
+  if (!user) return null
+
+  // Move user to new socket ID
+  delete state.users[oldSocketId]
+  user.id = newSocketId
+  state.users[newSocketId] = user
+
   return user
 }
 
