@@ -1,13 +1,13 @@
 <template>
   <div class="player_box flex mt-4 items-center rounded-lg p-2 transition-all"
        :class="{ 'ring-2 ring-player-yellow bg-gray-800/30': props.isCurrentUser }">
-    <div class="player-picture rounded-full w-min flex items-center -ml-[5%] p-2"
+    <div class="player-picture rounded-full w-auto flex items-center -ml-[5%] p-1"
       :style="{ backgroundColor: playerColor }">
-      <img :src="`/images/avatars/${player.avatar}`" class="h-20 rounded-full bg-white border-4"
+      <img :src="`/images/avatars/${player.avatar}`" class="h-20 rounded-full bg-white border-[1px]"
         :style="{ borderColor: playerColor }" alt="Player avatar" />
     </div>
 
-    <div class="player-infos ml-4 flex-1">
+    <div class="player-infos ml-4">
       <p class="player-name text-2xl font-medium text-white">
         {{ player.username }}
         <span v-if="player.isOwner" class="ml-2 text-yellow-400">👑</span>
@@ -41,12 +41,12 @@ const props = defineProps<Props>()
 
 const playerColor = computed(() => {
   const colorMap: Record<string, string> = {
-    '#FFCC5E': '#FFCC5E', // yellow
-    '#5E94FF': '#5E94FF', // blue
-    '#2CDA75': '#2CDA75', // green
-    '#BE7B67': '#BE7B67', // brown
-    '#B85EFF': '#B85EFF', // dark pink / purple
-    '#FF5EBA': '#FF5EBA'  // light pink
+    'yellow': '#FFCC5E', // yellow
+    'blue': '#5E94FF', // blue
+    'green': '#2CDA75', // green
+    'brown': '#BE7B67', // brown
+    'purple': '#B85EFF', // dark pink / purple
+    'pink': '#FF5EBA'  // light pink
   }
   return colorMap[props.player.color] || '#FFCC5E'
 })
