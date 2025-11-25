@@ -1,3 +1,4 @@
+// @ts-expect-error
 import type { Server, Socket } from 'socket.io'
 import { createUser, removeUser } from '../utils/user'
 import { createRoom, joinRoom, leaveRoom, rejoinRoom } from '../utils/room'

@@ -1,5 +1,6 @@
 import type { NitroApp } from 'nitropack'
 import { Server as Engine } from 'engine.io'
+// @ts-expect-error
 import { Server } from 'socket.io'
 import { defineEventHandler } from 'h3'
 import { registerSocketHandlers } from '../socket/handler'
@@ -14,6 +15,7 @@ export default defineNitroPlugin((nitroApp: NitroApp) => {
 
   nitroApp.router.use('/socket.io/', defineEventHandler({
     handler(event) {
+      // @ts-expect-error private method
       engine.handleRequest(event.node.req, event.node.res)
       event._handled = true
     },
