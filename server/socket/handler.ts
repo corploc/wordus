@@ -122,13 +122,9 @@ export const registerSocketHandlers = (io: Server) => {
 
       const result = handleInput(room, user, data.input)
 
-      if (result.type === 'word_finish') {
-        io.to(room.id).emit('word_finish', {
-          word: result.word,
-          user_id: user.id,
-          score: user.score,
-          combo: user.combo
-        })
+      if (result.type === 'error') {
+        io.to(room.id).emit('error', { message: 'Invalid input', user_id: user.id })
+
       } else if (result.type === 'update_letter') {
         io.to(room.id).emit('update_letter', {
           word_id: result.word?.id,

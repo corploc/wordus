@@ -107,16 +107,6 @@ export const validateWord = (room: Room, user: User, submittedWord: string) => {
     user.score += earnedPoints
     user.combo++
 
-    // Reset combo for other users who were typing this word (they lost the race)
-    matchingWord.typingUsers?.forEach(tu => {
-      if (tu.userId !== user.id) {
-        const otherUser = room.users.find(u => u.id === tu.userId)
-        if (otherUser) {
-          otherUser.combo = 0
-        }
-      }
-    })
-
     // Remove word and generate new one
     room.words = room.words.filter(w => w.id !== matchingWord.id)
     room.words.push(generateWord(room.settings.language, room.words))
