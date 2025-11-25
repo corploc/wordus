@@ -210,9 +210,13 @@ export const useGameStore = defineStore('game', () => {
     if (!room.value) return
 
     const word = room.value.words.find((w: Word) => w.id === data.word_id)
+
+    console.log('[Socket] Updating word letter', data, 'Found word:', word)
+
     if (word) {
       word.typed = data.typed
       word.owner = data.user_id
+      word.typingUsers = word.typingUsers || []
     }
   }
 

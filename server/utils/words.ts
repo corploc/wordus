@@ -49,6 +49,7 @@ export const generateWord = (language: 'en' | 'fr' | 'lat', existingWords: Word[
     x: pos, // Placeholder for now
     y: 0,
     typed: '',
-    owner: null
+    owner: null,
+    typingUsers: []
   }
 }

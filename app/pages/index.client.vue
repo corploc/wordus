@@ -175,6 +175,12 @@ const joinRoom = () => {
     return
   }
 
+  gameStore.createUser(
+    username.value.trim(),
+    avatar.value,
+    avatarColor.value
+  )
+
   gameStore.joinRoom(
     roomCode.value.toUpperCase(),
     username.value.trim()

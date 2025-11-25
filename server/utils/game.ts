@@ -19,32 +19,81 @@ export const startGame = (room: Room) => {
 }
 
 export const handleInput = (room: Room, user: User, input: string) => {
-  // Find word user is typing
-  // Logic: User types letters, we match against words
-  // If user was already typing a word, continue
-  // If not, check if input matches start of any word
-
-  // Simplified logic for now:
-  // We need to know which word the user is targeting.
-  // The client sends the full input or just keypress?
-  // Old app sent 'input' event with current text.
-
-  // We need to find a word that matches the input
+  // Find word that matches user's input
   const targetWord = room.words.find(w => w.text.startsWith(input))
 
-  if (targetWord) {
-    targetWord.typed = input
-    targetWord.owner = user.id
+  if (!targetWord) {
+    // User typed something that doesn't match any word
+    // Reset user's combo
+    user.combo = 0
 
-    if (input === targetWord.text) {
-      // Word completed
-      completeWord(room, user, targetWord)
-      return { type: 'word_finish', word: targetWord }
-    }
-    return { type: 'update_letter', word: targetWord }
+    // Remove user from all words they were typing
+    room.words.forEach(w => {
+      if (w.typingUsers) {
+        w.typingUsers = w.typingUsers.filter(tu => tu.userId !== user.id)
+      }
+    })
+
+    return { type: 'error' }
   }
 
-  return { type: 'error' }
+  // Initialize typingUsers if not exists
+  if (!targetWord.typingUsers) {
+    targetWord.typingUsers = []
+  }
+
+  // Remove user from all OTHER words they were typing
+  room.words.forEach(w => {
+    if (w.id !== targetWord.id && w.typingUsers) {
+      w.typingUsers = w.typingUsers.filter(tu => tu.userId !== user.id)
+
+      // Recalculate owner for that word if needed
+      if (w.typingUsers.length === 0) {
+        w.owner = null
+        w.typed = ''
+      } else {
+        const maxUser = w.typingUsers.reduce((max, tu) =>
+          tu.typed.length > max.typed.length ? tu : max
+        )
+        w.owner = maxUser.userId
+        w.typed = maxUser.typed
+      }
+    }
+  })
+
+  // Find or create entry for this user in target word
+  let userEntry = targetWord.typingUsers.find(tu => tu.userId === user.id)
+  if (!userEntry) {
+    userEntry = { userId: user.id, typed: '' }
+    targetWord.typingUsers.push(userEntry)
+  }
+
+  // Update user's progress
+  userEntry.typed = input
+
+  // Determine primary owner (user with most progress)
+  let maxProgress = 0
+  let primaryOwner = null
+  let longestTyped = ''
+
+  for (const tu of targetWord.typingUsers) {
+    if (tu.typed.length > maxProgress) {
+      maxProgress = tu.typed.length
+      primaryOwner = tu.userId
+      longestTyped = tu.typed
+    }
+  }
+
+  targetWord.owner = primaryOwner
+  targetWord.typed = longestTyped
+
+  // Check if word is completed
+  if (input === targetWord.text) {
+    completeWord(room, user, targetWord)
+    return { type: 'word_finish', word: targetWord }
+  }
+
+  return { type: 'update_letter', word: targetWord }
 }
 
 const completeWord = (room: Room, user: User, word: Word) => {
@@ -58,6 +107,16 @@ const completeWord = (room: Room, user: User, word: Word) => {
 
   user.score += Math.floor(points * multiplier)
   user.combo++
+
+  // Reset combo for other users who were typing this word (they lost the race)
+  word.typingUsers?.forEach(tu => {
+    if (tu.userId !== user.id) {
+      const otherUser = room.users.find(u => u.id === tu.userId)
+      if (otherUser) {
+        otherUser.combo = 0
+      }
+    }
+  })
 
   // Remove word and generate new one
   room.words = room.words.filter(w => w.id !== word.id)

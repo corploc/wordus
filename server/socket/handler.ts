@@ -128,7 +128,6 @@ export const registerSocketHandlers = (io: Server) => {
           score: user.score,
           combo: user.combo
         })
-        io.to(room.id).emit('refresh_room', room) // Sync full state
       } else if (result.type === 'update_letter') {
         io.to(room.id).emit('update_letter', {
           word_id: result.word?.id,
@@ -136,6 +135,8 @@ export const registerSocketHandlers = (io: Server) => {
           typed: result.word?.typed
         })
       }
+
+      io.to(room.id).emit('refresh_room', room) // Sync full state
     })
 
     socket.on('rejoin_room', (data: { sessionId: string, roomCode: string }) => {

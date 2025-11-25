@@ -33,6 +33,10 @@ export interface Word {
   y: number;
   typed: string;
   owner: string | null; // User ID who is currently typing it
+  typingUsers: {        // All users typing this word
+    userId: string;
+    typed: string;
+  }[];
 }
 
 export interface GameState {
