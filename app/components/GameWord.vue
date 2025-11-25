@@ -1,5 +1,5 @@
 <template>
-  <div class="word place-self-center flex flex-col items-center" :class="`case-${word.x}`">
+  <div class="word place-self-center flex flex-col items-center select-none" :class="`case-${word.x}`">
     <!-- Players typing indicator circles (MULTIPLE DOTS) -->
     <div v-if="typingUsers.length > 0" class="players-circles flex mb-2 gap-1">
       <div
