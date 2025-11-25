@@ -23,10 +23,6 @@ export const handleInput = (room: Room, user: User, input: string) => {
   const targetWord = room.words.find(w => w.text.startsWith(input))
 
   if (!targetWord) {
-    // User typed something that doesn't match any word
-    // Reset user's combo
-    user.combo = 0
-
     // Remove user from all words they were typing
     room.words.forEach(w => {
       if (w.typingUsers) {
