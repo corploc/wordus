@@ -42,7 +42,12 @@ export const registerSocketHandlers = (io: Server) => {
     socket.on('join', (data: { username: string, code: string }) => {
       console.log('Join room:', data)
 
-      const user = createUser(data.username, socket.id)
+      const user = getUser(socket.id)
+      if (!user) {
+        socket.emit('error', { message: 'User not found' })
+        return
+      }
+
       const room = joinRoom(user, data.code)
 
       if (room) {

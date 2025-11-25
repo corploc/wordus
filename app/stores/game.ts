@@ -146,10 +146,10 @@ export const useGameStore = defineStore('game', () => {
     // Attempt to restore session when socket connects
     attemptSessionRestore()
 
-    toast?.info({
-      title: 'Connected',
-      message: 'You have been connected to the server'
-    })
+    // toast?.info({
+    //   title: 'Connected',
+    //   message: 'You have been connected to the server'
+    // })
   }
 
   const handleDisconnect = () => {
@@ -190,6 +190,9 @@ export const useGameStore = defineStore('game', () => {
   const handleGameStarted = (data: { room: Room }) => {
     console.log('[Socket] Game started', data)
     room.value = data.room
+    toast?.success({
+      title: 'Game Started'
+    })
   }
 
   const handleUpdateTime = (time: number) => {
@@ -216,6 +219,9 @@ export const useGameStore = defineStore('game', () => {
   const handleGameFinish = (data: { room: Room }) => {
     console.log('[Socket] Game finished', data)
     room.value = data.room
+    toast?.success({
+      title: 'Game Finished'
+    })
   }
 
   const handleSuccessCreateUser = (data: { user: User }) => {
