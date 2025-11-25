@@ -1,8 +1,9 @@
 <template>
-  <div class="player_box flex mt-4 items-center">
+  <div class="player_box flex mt-4 items-center rounded-lg p-2 transition-all"
+       :class="{ 'ring-2 ring-player-yellow bg-gray-800/30': props.isCurrentUser }">
     <div class="player-picture rounded-full w-min flex items-center -ml-[5%] p-2"
       :style="{ backgroundColor: playerColor }">
-      <img :src="`/images/avatars/${player.avatar}`" class="h-20 rounded-full bg-white border-[3px]"
+      <img :src="`/images/avatars/${player.avatar}`" class="h-20 rounded-full bg-white border-4"
         :style="{ borderColor: playerColor }" alt="Player avatar" />
     </div>
 
@@ -33,6 +34,7 @@ import type { User } from '~/types'
 
 interface Props {
   player: User
+  isCurrentUser?: boolean
 }
 
 const props = defineProps<Props>()

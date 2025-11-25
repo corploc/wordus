@@ -77,30 +77,37 @@
       </div>
 
       <!-- PLAYING STATE: Game in progress -->
-      <div v-else-if="room.state === 'PLAYING'" class="grid grid-cols-12 gap-8">
-        <!-- Players List -->
-        <div class="col-span-3">
+      <div v-else-if="room.state === 'PLAYING'">
+        <!-- Fixed Left Sidebar: Players -->
+        <div class="fixed left-0 top-[97px] bottom-[80px] w-64 overflow-y-auto px-4 py-8 z-40">
           <h3 class="text-xl font-bold text-white mb-4">JOUEURS</h3>
-          <PlayerCard v-for="player in sortedPlayers" :key="player.id" :player="player" />
+          <PlayerCard
+            v-for="player in sortedPlayers"
+            :key="player.id"
+            :player="player"
+            :is-current-user="player.id === gameStore.user?.id"
+          />
         </div>
 
-        <!-- Game Board -->
-        <div class="col-span-9">
-          <!-- Words Grid -->
-          <div class="bg-gray-800 rounded-xl p-8 mb-6 min-h-[500px] grid grid-cols-4 grid-rows-5 gap-6">
+        <!-- Center: Words Grid -->
+        <div class="ml-64 h-[calc(100vh-97px-80px)] bg-gray-800 rounded-xl p-8">
+          <div class="w-full h-full grid grid-cols-4 grid-rows-5 gap-6">
             <GameWord v-for="word in room.words" :key="word.id" :word="word" />
           </div>
+        </div>
 
-          <!-- Player Input -->
-          <div class="bg-gray-800 rounded-xl p-6 flex items-center justify-between">
-            <div class="flex items-center gap-4 flex-1">
+        <!-- Fixed Bottom Input -->
+        <div class="fixed bottom-0 left-0 right-0 h-20 bg-gray-800 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.3)] z-50">
+          <div class="max-w-7xl mx-auto px-6 h-full flex items-center justify-center">
+            <div class="flex items-center gap-4 flex-1 max-w-4xl">
               <p class="text-2xl font-bold text-player-dark-pink uppercase">MOI</p>
-              <input v-model="currentInput" type="text" placeholder="..." autofocus
-                class="flex-1 px-6 py-4 bg-gray-700 text-white text-xl rounded-lg border-2 border-player-dark-pink focus:outline-none" />
-            </div>
-            <div class="flex items-center gap-2 ml-6">
-              <p class="text-5xl font-bold text-white">{{ currentUserScore }}</p>
-              <p class="text-xl text-gray-400">pts</p>
+              <input
+                v-model="currentInput"
+                type="text"
+                placeholder="..."
+                autofocus
+                class="flex-1 px-6 py-4 bg-gray-700 text-white text-xl rounded-lg border-2 border-player-dark-pink focus:outline-none"
+              />
             </div>
           </div>
         </div>

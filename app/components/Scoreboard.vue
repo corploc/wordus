@@ -8,10 +8,10 @@
           <div class="text-2xl font-bold">
             {{ index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `#${index + 1}` }}
           </div>
-          <img :src="`/assets/images/avatars/${player.avatar}`" class="h-12 w-12 rounded-full bg-white border-2"
+          <img :src="`/images/avatars/${player.avatar}`" class="h-12 w-12 rounded-full bg-white border-2"
             :style="{ borderColor: player.color }" alt="Avatar" />
           <div class="text-xl font-medium text-white">
-            {{ player.name }}
+            {{ player.username }}
           </div>
         </div>
         <div class="text-2xl font-bold text-white">

@@ -3,8 +3,8 @@
     <label v-if="label" :for="id" class="mb-4 text-base font-medium text-word-font-fill">
       {{ label }}
     </label>
-    <div class="slider-value relative w-[150%] -left-[25%]">
-      <span class="absolute h-[45px] font-semibold top-[-25px] z-[2] leading-[55px] select-none" :class="colorClass"
+    <div class="slider-value relative w-[100%] -left-[5%] mt-4">
+      <span class="absolute w-auto font-semibold top-[-35px] -left-[50px] z-[2] leading-[55px] select-none whitespace-nowrap" :class="colorClass"
         :style="{ left: thumbPosition }">
         {{ displayValue }}
       </span>
@@ -42,8 +42,11 @@ const displayValue = computed(() => {
 })
 
 const thumbPosition = computed(() => {
-  const percentage = ((props.modelValue - props.min) / (props.max - props.min)) * 50
-  return `${percentage}%`
+  const p = (props.modelValue - props.min) / 
+            (props.max - props.min);
+  const thumbWidth = 24; // matches CSS width
+  // Formula: percent + correction for thumb width
+  return `calc(${p * 100}% + (${thumbWidth/2 - p * thumbWidth}px))`;
 })
 
 const colorClass = computed(() => {
