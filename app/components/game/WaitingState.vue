@@ -91,7 +91,7 @@ const isLinkVisible = ref(false)
 
 // Computed invite link from room ID
 const inviteLink = computed(() => {
-  return `${window.location.origin}/join/${props.room.id}`
+  return `${window.location.origin}/join?code=${props.room.id}`
 })
 
 // Utility method

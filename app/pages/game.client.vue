@@ -28,7 +28,7 @@
       <!-- Fixed Left Sidebar: Players -->
       <div v-if="room.state !== 'ENDED'" class="absolute left-0 w-auto h-full overflow-y-auto px-4 py-8 z-40">
         <!-- <h3 class="text-xl font-bold text-white mb-4">JOUEURS</h3> -->
-        <div class="h-full flex items-center">
+        <div class="h-full flex flex-col justify-center">
           <PlayerCard v-for="player in sortedPlayers" :key="player.id" :player="player" size="small"
             :is-current-user="player.id === gameStore.user?.id" />
         </div>

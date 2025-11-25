@@ -47,8 +47,11 @@ definePageMeta({
   layout: 'default'
 })
 
-// Extract room code from URL and convert to uppercase
-const roomCode = (route.params.code as string).toUpperCase()
+// Extract room code from query params and convert to uppercase
+const roomCode = computed(() => {
+  const code = route.query.code as string
+  return code ? code.toUpperCase() : ''
+})
 
 // Form State
 const username = ref('')
@@ -86,7 +89,7 @@ const joinRoom = () => {
     username: username.value.trim(),
     avatar: avatar.value,
     color: avatarColor.value,
-    roomCode: roomCode
+    roomCode: roomCode.value
   })
 
   // Create user with avatar
@@ -98,7 +101,7 @@ const joinRoom = () => {
 
   // Join room with code from URL
   gameStore.joinRoom(
-    roomCode,
+    roomCode.value,
     username.value.trim()
   )
 }
@@ -108,7 +111,7 @@ onMounted(() => {
   randomizeAvatar()
 
   // Validate room code format
-  if (!roomCode || roomCode.length < 4) {
+  if (!roomCode.value || roomCode.value.length < 4) {
     toast.error({
       title: 'Error',
       message: 'Invalid room code'
