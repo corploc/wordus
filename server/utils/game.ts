@@ -3,6 +3,7 @@ import { generateWord } from './words'
 
 export const startGame = (room: Room) => {
   room.state = 'PLAYING'
+  room.timer = room.settings.duration
   room.words = []
 
   // Generate initial words

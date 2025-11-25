@@ -4,6 +4,9 @@ import { createRoom, joinRoom, leaveRoom, rejoinRoom } from '../utils/room'
 import { startGame, handleInput } from '../utils/game'
 import { getUser, getRoom } from '../utils/state'
 
+// Track timer intervals per room to prevent multiple intervals
+const roomTimers = new Map<string, NodeJS.Timeout>()
+
 export const registerSocketHandlers = (io: Server) => {
   console.log('Socket.IO server initialized with WebSocket support')
 
@@ -51,14 +54,30 @@ export const registerSocketHandlers = (io: Server) => {
       }
     })
 
-    socket.on('start_game', () => {
-      console.log('Start game')
+    socket.on('start_game', (data?: { settings?: any }) => {
+      console.log('Start game:', data)
 
       const user = getUser(socket.id)
       if (!user || !user.isOwner) return
 
       const room = getRoom(user.room)
       if (!room) return
+
+      // Update room settings if provided (for restart)
+      if (data?.settings) {
+        room.settings = {
+          ...room.settings,
+          duration: data.settings.duration,
+          wordCount: data.settings.wordCount,
+          language: data.settings.language
+        }
+      }
+
+      // Clear old timer interval if exists
+      if (roomTimers.has(room.id)) {
+        clearInterval(roomTimers.get(room.id)!)
+        roomTimers.delete(room.id)
+      }
 
       startGame(room)
       io.to(room.id).emit('game_started', { room })
@@ -67,6 +86,7 @@ export const registerSocketHandlers = (io: Server) => {
       const timerInterval = setInterval(() => {
         if (room.state !== 'PLAYING') {
           clearInterval(timerInterval)
+          roomTimers.delete(room.id)
           return
         }
 
@@ -77,8 +97,12 @@ export const registerSocketHandlers = (io: Server) => {
           room.state = 'ENDED'
           io.to(room.id).emit('game_finish', { room })
           clearInterval(timerInterval)
+          roomTimers.delete(room.id)
         }
       }, 1000)
+
+      // Store the timer interval
+      roomTimers.set(room.id, timerInterval)
     })
 
     socket.on('input', (data: { input: string }) => {
