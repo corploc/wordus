@@ -28,9 +28,8 @@
           </div>
 
           <div class="flex justify-between items-center pt-4">
-            <p class="text-gray-400 font-medium">Wordus</p>
             <button type="submit"
-              class="px-8 py-3 bg-player-blue hover:bg-player-blue/80 text-white font-bold rounded-lg transition">
+              class="px-8 py-3 bg-player-blue hover:bg-player-blue/80 text-white font-bold rounded-lg transition w-full">
               Créer la partie !
             </button>
           </div>

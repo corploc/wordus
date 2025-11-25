@@ -67,7 +67,7 @@
 
           <!-- Start Button (only for owner) -->
           <button v-if="isOwner" @click="startGame"
-            class="w-full px-8 py-4 bg-player-blue hover:bg-player-blue/80 text-white text-xl font-bold rounded-lg transition">
+            class="w-full px-8 py-3 bg-player-blue hover:bg-player-blue/80 text-white text-xl font-bold rounded-lg transition">
             Lancer la partie !
           </button>
           <p v-else class="text-center text-gray-400 text-lg">
@@ -145,7 +145,7 @@
               </div>
 
               <button type="submit"
-                class="w-full px-8 py-4 bg-player-green hover:bg-player-green/80 text-white text-xl font-bold rounded-lg transition">
+                class="w-full px-8 py-3 bg-player-green hover:bg-player-green/80 text-white text-xl font-bold rounded-lg transition">
                 Relancer la partie !
               </button>
             </form>
