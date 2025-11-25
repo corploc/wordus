@@ -90,7 +90,11 @@ const handleKeydown = (e: KeyboardEvent) => {
   if (e.key.length === 1 && /^[a-zA-Z]$/.test(e.key)) {
     localInput.value += e.key.toLowerCase()
   } else if (e.key === 'Backspace') {
-    localInput.value = localInput.value.slice(0, -1)
+    if (e.ctrlKey || e.metaKey) {
+      localInput.value = ''
+    } else {
+      localInput.value = localInput.value.slice(0, -1)
+    }
   } else if (e.key === 'Enter') {
     if (localInput.value.trim()) {
       submitWord(localInput.value.trim())
