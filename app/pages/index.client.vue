@@ -54,7 +54,7 @@
     <section class="mt-8 bg-gray-800 p-8 rounded-xl shadow-xl max-w-2xl mx-auto">
       <h2 class="text-2xl font-bold text-white mb-6 text-center">REJOINDRE UNE PARTIE</h2>
       <form @submit.prevent="joinRoom" class="flex gap-4">
-        <input v-model="roomCode" type="text" placeholder="Code de la partie (ex: ABCD)" maxlength="4"
+        <input v-model="roomCode" type="text" placeholder="Code de la partie (ex: ABCDEF)" maxlength="6" minlength="6"
           class="flex-1 px-4 py-3 bg-gray-700 text-white text-center uppercase rounded-lg border border-gray-600 focus:outline-none focus:border-player-green" />
         <button type="submit"
           class="px-8 py-3 bg-player-green hover:bg-player-green/80 text-white font-bold rounded-lg transition">

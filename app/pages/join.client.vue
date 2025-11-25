@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-6xl mx-auto px-4 py-12">
+  <div class="h-full max-w-6xl mx-auto px-4 py-12 flex flex-col justify-center">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <!-- Page Title -->
       <!-- <div class="text-center mb-8">

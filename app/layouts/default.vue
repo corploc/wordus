@@ -2,7 +2,7 @@
   <div class="min-h-screen bg-background">
     <AppHeader />
 
-    <main>
+    <main class="flex-1 h-full flex flex-col">
       <slot />
     </main>
   </div>
