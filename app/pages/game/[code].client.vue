@@ -18,7 +18,7 @@
   </header>
 
   <main>
-    <div class="max-w-7xl mx-auto px-4 py-8">
+    <div class="max-w-7xl mx-auto py-8">
       <div v-if="!room" class="text-center text-white">
         <p class="text-2xl">{{ isReconnecting ? 'Reconnexion en cours...' : 'Chargement de la partie...' }}</p>
       </div>
@@ -79,7 +79,7 @@
       <!-- PLAYING STATE: Game in progress -->
       <div v-else-if="room.state === 'PLAYING'">
         <!-- Fixed Left Sidebar: Players -->
-        <div class="fixed left-0 top-[97px] bottom-[80px] w-64 overflow-y-auto px-4 py-8 z-40">
+        <div class="fixed left-0 top-[97px] bottom-[80px] w-auto overflow-y-auto px-4 py-8 z-40">
           <h3 class="text-xl font-bold text-white mb-4">JOUEURS</h3>
           <PlayerCard
             v-for="player in sortedPlayers"
@@ -90,7 +90,7 @@
         </div>
 
         <!-- Center: Words Grid -->
-        <div class="ml-64 h-[calc(100vh-97px-80px)] bg-gray-800 rounded-xl p-8">
+        <div class="h-[calc(100vh-97px-80px)] bg-gray-800 rounded-xl p-8">
           <div class="w-full h-full grid grid-cols-4 grid-rows-5 gap-6">
             <GameWord v-for="word in room.words" :key="word.id" :word="word" />
           </div>
