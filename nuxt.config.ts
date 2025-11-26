@@ -8,21 +8,21 @@ export default defineNuxtConfig({
       websocket: true,
     },
 
-    preset: "cloudflare_module",
+    // preset: "cloudflare_module",
 
-    cloudflare: {
-      deployConfig: true,
-      nodeCompat: true,
+    // cloudflare: {
+    //   deployConfig: true,
+    //   nodeCompat: true,
 
-      wrangler: {
-        name: "app",
-        compatibility_flags: ["nodejs_compat"],
-        compatibility_date: "2025-10-26",
-        observability: {
-          logs: { enabled: true },
-        },
-      },
-    },
+    //   wrangler: {
+    //     name: "app",
+    //     compatibility_flags: ["nodejs_compat"],
+    //     compatibility_date: "2025-10-26",
+    //     observability: {
+    //       logs: { enabled: true },
+    //     },
+    //   },
+    // },
   },
 
   css: ["~/assets/css/main.css"],

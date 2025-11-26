@@ -9,7 +9,7 @@
             {{ index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `#${index + 1}` }}
           </div>
           <img :src="`/images/avatars/${player.avatar}`" class="h-12 w-12 rounded-full bg-white border-2"
-            :style="{ borderColor: player.color }" alt="Avatar" />
+            :style="{ borderColor: getUserColor(player.color) }" alt="Avatar" />
           <div class="text-xl font-medium text-white">
             {{ player.username }}
           </div>
@@ -40,5 +40,18 @@ const getPodiumClass = (index: number) => {
   if (index === 1) return 'bg-podium-second/20 border-2 border-podium-second'
   if (index === 2) return 'bg-podium-third/20 border-2 border-podium-third'
   return 'bg-gray-700/50'
+}
+
+const getUserColor = (color: string) => {
+  const colorMap: Record<string, string> = {
+    'yellow': '#FFCC5E',
+    'blue': '#5E94FF',
+    'green': '#2CDA75',
+    'brown': '#BE7B67',
+    'purple': '#B85EFF',
+    'pink': '#FF5EBA'
+  }
+
+  return colorMap[color] || '#FF5E73'
 }
 </script>
