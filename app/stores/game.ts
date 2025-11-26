@@ -19,6 +19,7 @@ export const useGameStore = defineStore('game', () => {
   let socket: Socket | null = null
   let router: any = null
   let toast: any = null
+  let t: any = null
 
   // ======================
   // Socket Lifecycle
@@ -36,6 +37,7 @@ export const useGameStore = defineStore('game', () => {
     socket = $socket
     router = useRouter()
     toast = useToast()
+    t = useI18n().t
 
     // Set up all socket event listeners FIRST
     setupSocketListeners()
@@ -159,7 +161,7 @@ export const useGameStore = defineStore('game', () => {
     isConnected.value = false
     // Don't clear session - we want to rejoin on reconnect
     toast?.info({
-      title: 'Déconnecté'
+      title: t('toast.disconnected')
     })
   }
 
@@ -181,7 +183,7 @@ export const useGameStore = defineStore('game', () => {
     if (errorMessage === 'Invalid input') return
 
     toast?.error({
-      title: 'Erreur',
+      title: t('toast.error'),
       message: errorMessage
     })
   }
@@ -195,7 +197,7 @@ export const useGameStore = defineStore('game', () => {
     console.log('[Socket] Game started', data)
     room.value = data.room
     toast?.success({
-      title: 'Partie lancée'
+      title: t('toast.gameStarted')
     })
   }
 
@@ -261,7 +263,7 @@ export const useGameStore = defineStore('game', () => {
     console.log('[Socket] Game finished', data)
     room.value = data.room
     toast?.success({
-      title: 'Partie terminée'
+      title: t('toast.gameEnded')
     })
   }
 
@@ -287,7 +289,7 @@ export const useGameStore = defineStore('game', () => {
     updateRoomCode(data.room_id)
 
     toast?.success({
-      title: 'Partie créée',
+      title: t('toast.roomCreated'),
     })
     router?.push(`/game`)
   }
@@ -300,7 +302,7 @@ export const useGameStore = defineStore('game', () => {
     updateRoomCode(data.room.id)
 
     toast?.success({
-      title: 'Partie rejointe',
+      title: t('toast.roomJoined'),
     })
     router?.push(`/game`)
   }
@@ -311,7 +313,7 @@ export const useGameStore = defineStore('game', () => {
     user.value = data.user
 
     toast?.success({
-      title: 'Reconnecté',
+      title: t('toast.reconnected'),
     })
 
     // Navigate to game page if not already there

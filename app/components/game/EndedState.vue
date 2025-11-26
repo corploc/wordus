@@ -9,43 +9,43 @@
       <!-- Restart Settings (only for owner) -->
       <div class="col-span-5">
         <div v-if="isOwner" class="bg-surface-alt p-8 rounded-xl transition-colors">
-          <h3 class="text-2xl font-bold text-text-primary mb-6">PREFERENCES DE PARTIE</h3>
+          <h3 class="text-2xl font-bold text-text-primary mb-6">{{ $t('settings.title') }}</h3>
 
           <form @submit.prevent="handleRestartGame" class="space-y-6">
             <RangeSlider
               id="new-duration"
               v-model="newDuration"
-              label="Durée de la partie"
+              :label="$t('settings.duration')"
               :min="30"
               :max="180"
               :step="10"
               color="blue"
-              unit="sec."
+              :unit="$t('settings.seconds')"
             />
 
             <RangeSlider
               id="new-wordCount"
               v-model="newWordCount"
-              label="Mots affichés en même temps"
+              :label="$t('settings.wordCount')"
               :min="1"
               :max="8"
               :step="1"
               color="green"
-              unit="mots"
+              :unit="$t('settings.words')"
             />
 
             <div>
               <label for="new-language" class="block mb-2 text-base font-medium text-text-secondary">
-                Langue des mots
+                {{ $t('settings.language') }}
               </label>
               <select
                 id="new-language"
                 v-model="newLanguage"
                 class="w-full px-4 py-3 bg-surface text-text-primary rounded-lg border border-border focus:outline-none focus:border-player-blue transition-colors"
               >
-                <option value="lat">Latin (2600 mots)</option>
-                <option value="en">Anglais (68000 mots)</option>
-                <option value="fr">Français (320000 mots)</option>
+                <option value="lat">{{ $t('languages.latin') }}</option>
+                <option value="en">{{ $t('languages.english') }}</option>
+                <option value="fr">{{ $t('languages.french') }}</option>
               </select>
             </div>
 
@@ -53,12 +53,12 @@
               type="submit"
               class="w-full px-8 py-3 bg-player-green hover:bg-player-green/80 text-white text-xl font-bold rounded-lg transition"
             >
-              Relancer la partie !
+              {{ $t('game.restartGame') }}
             </button>
           </form>
         </div>
         <div v-else class="bg-surface-alt p-8 rounded-xl text-center transition-colors">
-          <p class="text-text-secondary text-lg">En attente que l'hôte relance la partie...</p>
+          <p class="text-text-secondary text-lg">{{ $t('waiting.forRestart') }}</p>
         </div>
       </div>
     </div>

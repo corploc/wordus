@@ -1,0 +1,77 @@
+{
+  "app": {
+    "name": "Wordus.xyz"
+  },
+  "nav": {
+    "players": "Players",
+    "timeLeft": "Time left"
+  },
+  "home": {
+    "newGame": "NEW GAME",
+    "joinGame": "JOIN A GAME",
+    "createRoom": "Create game!",
+    "join": "Join",
+    "roomCodePlaceholder": "Room code (e.g. ABCDEF)"
+  },
+  "settings": {
+    "title": "GAME SETTINGS",
+    "duration": "Game duration",
+    "wordCount": "Words displayed at once",
+    "language": "Words language",
+    "seconds": "sec.",
+    "words": "words"
+  },
+  "languages": {
+    "switchToEnglish": "Switch to English",
+    "switchToFrench": "Passer en français",
+    "latin": "Latin (2600 words)",
+    "english": "English (68000 words)",
+    "french": "French (320000 words)",
+    "latinShort": "latin",
+    "englishShort": "english",
+    "frenchShort": "french"
+  },
+  "user": {
+    "chooseUsername": "Choose your username!",
+    "usernamePlaceholder": "Click the icon to generate →",
+    "randomUsername": "Generate random username",
+    "randomImage": "Random image"
+  },
+  "game": {
+    "joinRoom": "JOIN THE GAME",
+    "joinButton": "Join the game!",
+    "startGame": "Start game!",
+    "restartGame": "Restart game!",
+    "inviteFriends": "Invite your friends to play!",
+    "copy": "COPY",
+    "results": "RESULTS",
+    "points": "pts"
+  },
+  "waiting": {
+    "forStart": "Waiting for the host to start the game...",
+    "forRestart": "Waiting for the host to restart the game..."
+  },
+  "loading": {
+    "reconnecting": "Reconnecting...",
+    "loadingGame": "Loading game..."
+  },
+  "theme": {
+    "switchToLight": "Switch to light mode",
+    "switchToDark": "Switch to dark mode"
+  },
+  "toast": {
+    "disconnected": "Disconnected",
+    "error": "Error",
+    "gameStarted": "Game started",
+    "gameEnded": "Game ended",
+    "roomCreated": "Room created",
+    "roomJoined": "Room joined",
+    "reconnected": "Reconnected",
+    "linkCopied": "Link copied",
+    "startingGame": "Starting game",
+    "restartingGame": "Restarting game",
+    "usernameRequired": "Username is required",
+    "roomCodeRequired": "Room code is required",
+    "invalidRoomCode": "Invalid room code"
+  }
+}

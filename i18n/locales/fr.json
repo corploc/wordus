@@ -1,0 +1,77 @@
+{
+  "app": {
+    "name": "Wordus.xyz"
+  },
+  "nav": {
+    "players": "Nombre de joueurs",
+    "timeLeft": "Temps restant"
+  },
+  "home": {
+    "newGame": "NOUVELLE PARTIE",
+    "joinGame": "REJOINDRE UNE PARTIE",
+    "createRoom": "Créer la partie !",
+    "join": "Rejoindre",
+    "roomCodePlaceholder": "Code de la partie (ex: ABCDEF)"
+  },
+  "settings": {
+    "title": "PREFERENCES DE PARTIE",
+    "duration": "Durée de la partie",
+    "wordCount": "Mots affichés en même temps",
+    "language": "Langue des mots",
+    "seconds": "sec.",
+    "words": "mots"
+  },
+  "languages": {
+    "switchToEnglish": "Switch to English",
+    "switchToFrench": "Passer en français",
+    "latin": "Latin (2600 mots)",
+    "english": "Anglais (68000 mots)",
+    "french": "Français (320000 mots)",
+    "latinShort": "latin",
+    "englishShort": "anglais",
+    "frenchShort": "français"
+  },
+  "user": {
+    "chooseUsername": "Choisis ton pseudo !",
+    "usernamePlaceholder": "Clique sur l'icône pour générer →",
+    "randomUsername": "Générer un pseudo aléatoire",
+    "randomImage": "Image aléatoire"
+  },
+  "game": {
+    "joinRoom": "REJOINDRE LA PARTIE",
+    "joinButton": "Rejoindre la partie !",
+    "startGame": "Lancer la partie !",
+    "restartGame": "Relancer la partie !",
+    "inviteFriends": "Invite tes amis à jouer !",
+    "copy": "COPIER",
+    "results": "RESULTATS",
+    "points": "pts"
+  },
+  "waiting": {
+    "forStart": "En attente du lancement de la partie...",
+    "forRestart": "En attente que l'hôte relance la partie..."
+  },
+  "loading": {
+    "reconnecting": "Reconnexion en cours...",
+    "loadingGame": "Chargement de la partie..."
+  },
+  "theme": {
+    "switchToLight": "Passer en mode clair",
+    "switchToDark": "Passer en mode sombre"
+  },
+  "toast": {
+    "disconnected": "Déconnecté",
+    "error": "Erreur",
+    "gameStarted": "Partie lancée",
+    "gameEnded": "Partie terminée",
+    "roomCreated": "Partie créée",
+    "roomJoined": "Partie rejointe",
+    "reconnected": "Reconnecté",
+    "linkCopied": "Lien copié",
+    "startingGame": "Lancement de la partie",
+    "restartingGame": "Relance de la partie",
+    "usernameRequired": "Un pseudo est requis",
+    "roomCodeRequired": "Un code de partie est requis",
+    "invalidRoomCode": "Code de partie invalide"
+  }
+}

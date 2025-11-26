@@ -99,11 +99,28 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@nuxtjs/tailwindcss",
     "@nuxtjs/color-mode",
+    "@nuxtjs/i18n",
     "nuxt-toast",
     "@nuxtjs/robots",
     "@nuxtjs/sitemap",
     "nuxt-umami",
   ],
+
+  i18n: {
+    locales: [
+      { code: 'fr', name: 'Français', file: 'fr.json' },
+      { code: 'en', name: 'English', file: 'en.json' }
+    ],
+    defaultLocale: 'fr',
+    langDir: 'locales',
+    strategy: 'no_prefix',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'wordus-lang',
+      redirectOn: 'root',
+      fallbackLocale: 'fr'
+    }
+  },
 
   colorMode: {
     classSuffix: '',

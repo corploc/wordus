@@ -3,34 +3,34 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <!-- Room Creation Section -->
       <section class="bg-surface-alt p-8 rounded-xl shadow-xl transition-colors">
-        <h2 class="text-2xl font-bold text-text-primary mb-6">NOUVELLE PARTIE</h2>
+        <h2 class="text-2xl font-bold text-text-primary mb-6">{{ $t('home.newGame') }}</h2>
 
         <form @submit.prevent="createRoom" class="space-y-6">
           <!-- Game Duration Slider -->
-          <RangeSlider id="duration" v-model="duration" label="Durée de la partie" :min="30" :max="180" :step="10"
-            color="blue" unit="sec." />
+          <RangeSlider id="duration" v-model="duration" :label="$t('settings.duration')" :min="30" :max="180" :step="10"
+            color="blue" :unit="$t('settings.seconds')" />
 
           <!-- Words Number Slider -->
-          <RangeSlider id="wordCount" v-model="wordCount" label="Mots affichés en même temps" :min="1" :max="8"
-            :step="1" color="green" unit="mots" />
+          <RangeSlider id="wordCount" v-model="wordCount" :label="$t('settings.wordCount')" :min="1" :max="8"
+            :step="1" color="green" :unit="$t('settings.words')" />
 
           <!-- Language Selection -->
           <div>
             <label for="language" class="block mb-2 text-base font-medium text-text-secondary">
-              Langue des mots
+              {{ $t('settings.language') }}
             </label>
             <select id="language" v-model="language"
               class="w-full px-4 py-3 bg-surface text-text-primary rounded-lg border border-border focus:outline-none focus:border-player-blue transition-colors">
-              <option value="lat">Latin (2600 mots)</option>
-              <option value="en">Anglais (68000 mots)</option>
-              <option value="fr">Français (320000 mots)</option>
+              <option value="lat">{{ $t('languages.latin') }}</option>
+              <option value="en">{{ $t('languages.english') }}</option>
+              <option value="fr">{{ $t('languages.french') }}</option>
             </select>
           </div>
 
           <div class="flex justify-between items-center pt-4">
             <button type="submit"
               class="px-8 py-3 bg-player-blue hover:bg-player-blue/80 text-white font-bold rounded-lg transition w-full">
-              Créer la partie !
+              {{ $t('home.createRoom') }}
             </button>
           </div>
         </form>
@@ -42,14 +42,14 @@
 
         <div class="w-full mt-8">
           <label for="username" class="block mb-3 text-center text-base font-medium text-text-secondary">
-            Choisis ton pseudo !
+            {{ $t('user.chooseUsername') }}
           </label>
           <div class="relative w-full">
             <input
               id="username"
               v-model="username"
               type="text"
-              placeholder="Clique sur l'icône pour générer →"
+              :placeholder="$t('user.usernamePlaceholder')"
               maxlength="15"
               class="w-full px-4 py-3 pr-12 bg-surface text-text-primary text-center rounded-lg border border-border focus:outline-none focus:border-player-yellow transition-colors"
             />
@@ -58,7 +58,7 @@
               @click="randomizeUsername"
               type="button"
               class="absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary hover:text-text-primary transition"
-              title="Générer un pseudo aléatoire"
+              :title="$t('user.randomUsername')"
             >
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd" />
@@ -71,13 +71,13 @@
 
     <!-- Join Room Section -->
     <section class="mt-8 bg-surface-alt p-8 rounded-xl shadow-xl max-w-2xl mx-auto transition-colors">
-      <h2 class="text-2xl font-bold text-text-primary mb-6 text-center">REJOINDRE UNE PARTIE</h2>
+      <h2 class="text-2xl font-bold text-text-primary mb-6 text-center">{{ $t('home.joinGame') }}</h2>
       <form @submit.prevent="joinRoom" class="flex gap-4">
-        <input v-model="roomCode" type="text" placeholder="Code de la partie (ex: ABCDEF)" maxlength="6" minlength="6"
+        <input v-model="roomCode" type="text" :placeholder="$t('home.roomCodePlaceholder')" maxlength="6" minlength="6"
           class="flex-1 px-4 py-3 bg-surface text-text-primary text-center uppercase rounded-lg border border-border focus:outline-none focus:border-player-green transition-colors" />
         <button type="submit"
           class="px-8 py-3 bg-player-green hover:bg-player-green/80 text-white font-bold rounded-lg transition">
-          Rejoindre
+          {{ $t('home.join') }}
         </button>
       </form>
     </section>
@@ -89,6 +89,7 @@ import { generateRandomUsername } from '~/utils/username'
 
 const toast = useToast()
 const gameStore = useGameStore()
+const { t } = useI18n()
 
 definePageMeta({
   layout: 'default'
@@ -127,7 +128,7 @@ const randomizeUsername = () => {
 const createRoom = () => {
   if (!username.value.trim()) {
     toast.error({
-      title: 'Un pseudo est requis',
+      title: t('toast.usernameRequired'),
     })
     return
   }
@@ -161,13 +162,13 @@ const createRoom = () => {
 const joinRoom = () => {
   if (!username.value.trim()) {
     toast.error({
-      title: 'Un pseudo est requis',
+      title: t('toast.usernameRequired'),
     })
     return
   }
   if (!roomCode.value.trim()) {
     toast.error({
-      title: 'Un code de partie est requis',
+      title: t('toast.roomCodeRequired'),
     })
     return
   }

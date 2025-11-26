@@ -17,7 +17,7 @@
           </g>
         </g>
       </svg>
-      <p class="text-white">Image aléatoire</p>
+      <p class="text-white">{{ $t('user.randomImage') }}</p>
     </button>
   </div>
 </template>

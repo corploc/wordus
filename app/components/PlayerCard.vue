@@ -3,7 +3,7 @@
     :class="{ 'ring-2 bg-surface-alt/30': props.isCurrentUser }" :style="{
       borderColor: playerColor
     }">
-    <div class="player-picture rounded-full w-auto flex items-center p-1" :style="{ backgroundColor: playerColor }">
+    <div class="player-picture rounded-full w-auto flex items-center p-.5" :style="{ backgroundColor: playerColor }">
       <img :src="`/images/avatars/${player.avatar}`" class="rounded-full bg-word-bg border-[1px]" :class="avatarSizeClass"
         :style="{ borderColor: playerColor }" alt="Player avatar" />
     </div>

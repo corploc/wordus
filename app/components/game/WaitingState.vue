@@ -2,19 +2,19 @@
   <section class="flex-1 max-w-xl w-full mx-auto px-4 py-8 flex flex-col justify-center">
       <!-- Settings and Start Button -->
       <div class="bg-surface-alt p-8 rounded-xl transition-colors">
-        <h3 class="text-2xl font-bold text-text-primary mb-6">PREFERENCES DE PARTIE</h3>
+        <h3 class="text-2xl font-bold text-text-primary mb-6">{{ $t('settings.title') }}</h3>
 
         <div class="space-y-4 mb-8">
           <p class="text-xl text-text-primary">
-            <span class="font-medium">Durée de la partie :</span>
-            <span class="text-player-blue ml-2">{{ room.settings.duration }} sec.</span>
+            <span class="font-medium">{{ $t('settings.duration') }} :</span>
+            <span class="text-player-blue ml-2">{{ room.settings.duration }} {{ $t('settings.seconds') }}</span>
           </p>
           <p class="text-xl text-text-primary">
-            <span class="font-medium">Mots affichés en même temps :</span>
-            <span class="text-player-green ml-2">{{ room.settings.wordCount }} mots</span>
+            <span class="font-medium">{{ $t('settings.wordCount') }} :</span>
+            <span class="text-player-green ml-2">{{ room.settings.wordCount }} {{ $t('settings.words') }}</span>
           </p>
           <p class="text-xl text-text-primary">
-            <span class="font-medium">Langue des mots :</span>
+            <span class="font-medium">{{ $t('settings.language') }} :</span>
             <span class="ml-2">{{ getLanguageName(room.settings.language) }}</span>
           </p>
         </div>
@@ -22,7 +22,7 @@
         <!-- Invite Link -->
         <div class="mb-8">
           <label class="block mb-3 text-base font-medium text-text-secondary">
-            Invite tes amis à jouer !
+            {{ $t('game.inviteFriends') }}
           </label>
           <div class="flex gap-3">
             <!-- Input with toggle icon -->
@@ -53,7 +53,7 @@
 
             <button @click="handleCopyLink"
               class="px-6 py-3 bg-player-yellow hover:bg-player-yellow/80 text-white font-bold rounded-lg transition">
-              COPIER
+              {{ $t('game.copy') }}
             </button>
           </div>
         </div>
@@ -61,10 +61,10 @@
         <!-- Start Button (only for owner) -->
         <button v-if="isOwner" @click="emit('start-game')"
           class="w-full px-8 py-3 bg-player-blue hover:bg-player-blue/80 text-white text-xl font-bold rounded-lg transition">
-          Lancer la partie !
+          {{ $t('game.startGame') }}
         </button>
         <p v-else class="text-center text-text-secondary text-lg">
-          En attente du lancement de la partie...
+          {{ $t('waiting.forStart') }}
         </p>
       </div>
   </section>
@@ -86,6 +86,8 @@ const emit = defineEmits<{
   'copy-link': []
 }>()
 
+const { t } = useI18n()
+
 // Link visibility state
 const isLinkVisible = ref(false)
 
@@ -97,9 +99,9 @@ const inviteLink = computed(() => {
 // Utility method
 const getLanguageName = (lang: string) => {
   const names: Record<string, string> = {
-    lat: 'latin',
-    en: 'anglais',
-    fr: 'français'
+    lat: t('languages.latinShort'),
+    en: t('languages.englishShort'),
+    fr: t('languages.frenchShort')
   }
   return names[lang] || lang
 }

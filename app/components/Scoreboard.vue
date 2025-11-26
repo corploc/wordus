@@ -1,6 +1,6 @@
 <template>
   <div class="scoreboard bg-surface-alt p-8 rounded-xl transition-colors">
-    <h2 class="text-3xl font-bold text-text-primary mb-6 text-center">RESULTATS</h2>
+    <h2 class="text-3xl font-bold text-text-primary mb-6 text-center">{{ $t('game.results') }}</h2>
     <div class="space-y-4">
       <div v-for="(player, index) in sortedPlayers" :key="player.id"
         class="flex items-center justify-between py-4 px-6 rounded-lg transition-colors" :class="getPodiumClass(index)">
@@ -15,7 +15,7 @@
           </div>
         </div>
         <div class="text-2xl font-bold text-text-primary">
-          {{ player.score }} pts
+          {{ player.score }} {{ $t('game.points') }}
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@
     @click="toggleTheme"
     class="p-2 rounded-lg transition-colors"
     :class="isDark ? 'bg-surface-alt hover:bg-surface' : 'bg-surface-alt hover:bg-surface'"
-    :title="isDark ? 'Passer en mode clair' : 'Passer en mode sombre'"
+    :title="isDark ? $t('theme.switchToLight') : $t('theme.switchToDark')"
   >
     <!-- Sun icon (shown in dark mode to switch to light) -->
     <svg v-if="isDark" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
