@@ -147,11 +147,6 @@ export const useGameStore = defineStore('game', () => {
 
     // Attempt to restore session when socket connects
     attemptSessionRestore()
-
-    // toast?.info({
-    //   title: 'Connected',
-    //   message: 'You have been connected to the server'
-    // })
   }
 
   const handleDisconnect = () => {
@@ -176,6 +171,9 @@ export const useGameStore = defineStore('game', () => {
       clearSession()
       router?.push('/')
     }
+
+    // If error is "Invalid input", don't show toast (too spammy)
+    if (errorMessage === 'Invalid input') return
 
     toast?.error({
       title: 'Erreur',
@@ -202,7 +200,7 @@ export const useGameStore = defineStore('game', () => {
     }
   }
 
-  const handleWordFinish = (data: { word_id: string, user_id: string }) => {
+  const handleWordFinish = (data: { word: Word, user_id: string, score: number, combo: number }) => {
     console.log('[Socket] Word finished', data)
     // Additional logic can be added here if needed
   }
@@ -215,22 +213,21 @@ export const useGameStore = defineStore('game', () => {
     newCombo: number
   }) => {
     console.log('[Socket] Word result', data)
-
     // Update local user snapshot immediately
     if (user.value) {
       user.value.score = data.newScore
       user.value.combo = data.newCombo
     }
 
-    if (data.correct) {
-      toast?.success({
-        title: `+${data.points} points`
-      })
-    } else {
-      toast?.error({
-        title: `${data.points} points`
-      })
-    }
+    // if (data.correct) {
+    //   toast?.success({
+    //     title: `+${data.points} points`
+    //   })
+    // } else {
+    //   toast?.error({
+    //     title: `${data.points} points`
+    //   })
+    // }
   }
 
   const handleUpdateLetter = (data: { word_id: string, typed: string, user_id: string }) => {
@@ -268,11 +265,6 @@ export const useGameStore = defineStore('game', () => {
       currentRoomCode: null,
       timestamp: Date.now()
     })
-
-    // toast?.success({
-    //   title: 'Utilisateur créé',
-    //   message: 'Vous avez été créé'
-    // })
   }
 
   const handleSuccessHostRoom = (data: { room_id: string }) => {
