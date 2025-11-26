@@ -28,8 +28,13 @@ jobs:
         with:
           node-version: '22'
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: latest
+
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
 
       - name: Configure Git
         run: |
@@ -38,7 +43,7 @@ jobs:
 
       - name: Bump version
         run: |
-          npm version ${{ inputs.bump_type }} -m "chore(release): %s"
+          pnpm version ${{ inputs.bump_type }} -m "chore(release): %s"
 
       - name: Push changes
         run: git push --follow-tags
