@@ -1,75 +1,119 @@
-# Nuxt Minimal Starter
+<p align="center">
+  <img src="public/images/logo/logo_full.png" alt="Wordus Logo" width="400">
+</p>
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+<p align="center">
+  <strong>Jeu de frappe multijoueur en temps réel</strong>
+</p>
 
-## Setup
+<p align="center">
+  <a href="https://wordus.xyz">wordus.xyz</a> •
+  <a href="#fonctionnalités">Fonctionnalités</a> •
+  <a href="#installation">Installation</a> •
+  <a href="#docker">Docker</a> •
+  <a href="#contribution">Contribution</a>
+</p>
 
-Make sure to install dependencies:
+---
+
+## À propos
+
+**Wordus** est un jeu de frappe multijoueur où vous affrontez vos amis en temps réel. Créez une partie, partagez le code d'invitation et tapez les mots plus vite que vos adversaires pour grimper au scoreboard !
+
+## Fonctionnalités
+
+- **Multijoueur temps réel** — Jusqu'à 6 joueurs par partie
+- **3 langues disponibles** — Français (320k mots), Anglais (68k mots), Latin (2600 mots)
+- **Paramètres personnalisables** — Durée (30-180s), nombre de mots affichés (1-8)
+- **Avatars personnalisables** — Choisissez votre avatar et pseudo
+- **Système de combo** — Enchaînez les mots pour maximiser votre score
+
+## Stack technique
+
+| Technologie | Usage |
+|-------------|-------|
+| [Nuxt 4](https://nuxt.com) | Framework Vue.js |
+| [Vue 3](https://vuejs.org) | UI réactive |
+| [Pinia](https://pinia.vuejs.org) | State management |
+| [TailwindCSS](https://tailwindcss.com) | Styling |
+| [Socket.io](https://socket.io) | WebSockets temps réel |
+| [pnpm](https://pnpm.io) | Package manager |
+
+## Installation
+
+### Prérequis
+
+- Node.js 20+
+- pnpm
+
+### Développement
 
 ```bash
-# npm
-npm install
+# Cloner le repo
+git clone https://github.com/corploc/wordus.git
+cd wordus
 
-# pnpm
+# Installer les dépendances
 pnpm install
 
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
+# Lancer le serveur de développement
 pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
+L'application sera disponible sur `http://localhost:3000`
 
-Build the application for production:
+### Build de production
 
 ```bash
-# npm
-npm run build
-
-# pnpm
 pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+pnpm preview
 ```
 
-Locally preview production build:
+## Docker
+
+### Build
 
 ```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
+docker build -t wordus \
+  --build-arg NUXT_UMAMI_WEBSITE_ID=your-id \
+  --build-arg NUXT_UMAMI_HOST=https://cloud.umami.is \
+  .
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+### Run
+
+```bash
+docker run -p 3000:3000 wordus
+```
+
+## Configuration
+
+| Variable | Description | Défaut |
+|----------|-------------|--------|
+| `NUXT_UMAMI_WEBSITE_ID` | ID du site Umami (analytics) | - |
+| `NUXT_UMAMI_HOST` | Host Umami | `https://cloud.umami.is` |
+
+## Contribution
+
+Les contributions sont les bienvenues !
+
+1. Fork le projet
+2. Créez votre branche (`git checkout -b feature/ma-feature`)
+3. Committez vos changements (`git commit -m 'feat: ajout de ma feature'`)
+4. Push sur la branche (`git push origin feature/ma-feature`)
+5. Ouvrez une Pull Request
+
+### Conventions de commit
+
+Ce projet utilise [Conventional Commits](https://www.conventionalcommits.org/) :
+
+- `feat:` nouvelle fonctionnalité
+- `fix:` correction de bug
+- `docs:` documentation
+- `style:` formatage
+- `refactor:` refactoring
+- `test:` ajout de tests
+
+## License
+
+MIT © [corploc](https://github.com/corploc)
