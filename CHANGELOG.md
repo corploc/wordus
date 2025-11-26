@@ -1,3 +1,12 @@
+## [2.0.2](https://github.com/corploc/wordus/compare/v2.0.1...v2.0.2) (2025-11-26)
+
+
+### Bug Fixes
+
+* Copy server data to Docker production image layer ([2548f17](https://github.com/corploc/wordus/commit/2548f172399294988e7a2f377a4048896a520e6d))
+
+
+
 ## [2.0.1](https://github.com/corploc/wordus/compare/v2.0.0...v2.0.1) (2025-11-26)
 
 
