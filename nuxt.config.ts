@@ -7,22 +7,6 @@ export default defineNuxtConfig({
     experimental: {
       websocket: true,
     },
-
-    // preset: "cloudflare_module",
-
-    // cloudflare: {
-    //   deployConfig: true,
-    //   nodeCompat: true,
-
-    //   wrangler: {
-    //     name: "app",
-    //     compatibility_flags: ["nodejs_compat"],
-    //     compatibility_date: "2025-10-26",
-    //     observability: {
-    //       logs: { enabled: true },
-    //     },
-    //   },
-    // },
   },
 
   css: ["~/assets/css/main.css"],
@@ -179,5 +163,11 @@ export default defineNuxtConfig({
     id: process.env.NUXT_UMAMI_WEBSITE_ID,
     host: process.env.NUXT_UMAMI_HOST || "https://cloud.umami.is",
     autoTrack: true,
+  },
+
+  runtimeConfig: {
+    public: {
+      baseURL: "http://localhost:3000",
+    },
   },
 });

@@ -1,8 +1,11 @@
 import { io } from 'socket.io-client'
 
 export default defineNuxtPlugin(() => {
+  const config = useRuntimeConfig()
+  console.log('[Socket Plugin] Runtime Config Public Base URL:', config.public.baseURL)
+
   // Initialize socket connection
-  const socket = io('http://localhost:3000', {
+  const socket = io(config.public.baseURL, {
     transports: ['websocket', 'polling'],
     autoConnect: true
   })
