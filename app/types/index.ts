@@ -43,3 +43,10 @@ export interface GameState {
   rooms: Record<string, Room>;
   users: Record<string, User>;
 }
+
+export interface FloatingPoint {
+  id: string;
+  position: number;  // Grid position (1-20)
+  points: number;
+  correct: boolean;
+}

@@ -2,9 +2,20 @@
   <!-- NO section wrapper - fixed elements span full width -->
   <div class="flex-1 px-12 pb-8 flex flex-col min-h-0 relative">
     <!-- Center: Words Grid -->
-    <div class="flex-1 bg-gray-800 rounded-xl p-12 flex">
+    <div class="flex-1 bg-gray-800 rounded-xl p-12 flex relative">
       <div class="flex-1 grid grid-cols-4 grid-rows-5 gap-6">
         <GameWord v-for="word in room.words" :key="word.id" :word="word" />
+      </div>
+
+      <!-- Floating points overlay (same grid structure) -->
+      <div class="absolute inset-12 grid grid-cols-4 grid-rows-5 gap-6 pointer-events-none">
+        <FloatingPoint
+          v-for="fp in gameStore.floatingPoints"
+          :key="fp.id"
+          :position="fp.position"
+          :points="fp.points"
+          :correct="fp.correct"
+        />
       </div>
     </div>
 

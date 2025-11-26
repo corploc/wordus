@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import type { Socket } from 'socket.io-client'
-import type { Room, User, RoomSettings, Word } from '~/types'
+import type { Room, User, RoomSettings, Word, FloatingPoint } from '~/types'
 import { loadSession, saveSession, clearSession, updateRoomCode, getOrCreateSessionId } from '~/utils/session'
 
 export const useGameStore = defineStore('game', () => {
@@ -9,6 +9,11 @@ export const useGameStore = defineStore('game', () => {
   const user = ref<User | null>(null)
   const isConnected = ref(false)
   const error = ref<string | null>(null)
+
+  // Floating points animation state
+  const FLOATING_POINT_DURATION = 1200 // ms - sync with CSS --animation-duration
+  const lastSubmittedPosition = ref<number | null>(null)
+  const floatingPoints = ref<FloatingPoint[]>([])
 
   // Socket reference
   let socket: Socket | null = null
@@ -219,15 +224,23 @@ export const useGameStore = defineStore('game', () => {
       user.value.combo = data.newCombo
     }
 
-    // if (data.correct) {
-    //   toast?.success({
-    //     title: `+${data.points} points`
-    //   })
-    // } else {
-    //   toast?.error({
-    //     title: `${data.points} points`
-    //   })
-    // }
+    // Create floating point animation
+    if (lastSubmittedPosition.value !== null) {
+      const fp: FloatingPoint = {
+        id: `fp-${Date.now()}-${Math.random().toString(36).slice(2)}`,
+        position: lastSubmittedPosition.value,
+        points: data.points,
+        correct: data.correct
+      }
+      floatingPoints.value.push(fp)
+
+      // Auto-remove after animation completes
+      setTimeout(() => {
+        floatingPoints.value = floatingPoints.value.filter(f => f.id !== fp.id)
+      }, FLOATING_POINT_DURATION)
+    }
+
+    lastSubmittedPosition.value = null
   }
 
   const handleUpdateLetter = (data: { word_id: string, typed: string, user_id: string }) => {
@@ -371,7 +384,11 @@ export const useGameStore = defineStore('game', () => {
       return
     }
 
-    console.log('[GameStore] Submitting word:', word)
+    // Capture word position BEFORE submitting (for floating point animation)
+    const matchingWord = room.value?.words.find(w => w.text === word)
+    lastSubmittedPosition.value = matchingWord?.x || null
+
+    console.log('[GameStore] Submitting word:', word, 'at position:', lastSubmittedPosition.value)
     socket.emit('submit_word', { word })
   }
 
@@ -394,6 +411,7 @@ export const useGameStore = defineStore('game', () => {
     user,
     isConnected,
     error,
+    floatingPoints,
 
     // Lifecycle
     initSocket,
