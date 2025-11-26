@@ -1,28 +1,28 @@
 <template>
   <div class="player_box flex mt-4 items-center rounded-lg p-2 transition-all h-min"
-    :class="{ 'ring-2 bg-gray-800/30': props.isCurrentUser }" :style="{
+    :class="{ 'ring-2 bg-surface-alt/30': props.isCurrentUser }" :style="{
       borderColor: playerColor
     }">
     <div class="player-picture rounded-full w-auto flex items-center p-1" :style="{ backgroundColor: playerColor }">
-      <img :src="`/images/avatars/${player.avatar}`" class="rounded-full bg-white border-[1px]" :class="avatarSizeClass"
+      <img :src="`/images/avatars/${player.avatar}`" class="rounded-full bg-word-bg border-[1px]" :class="avatarSizeClass"
         :style="{ borderColor: playerColor }" alt="Player avatar" />
     </div>
 
     <div class="player-infos ml-4">
-      <p class="player-name font-medium text-white" :class="textSizeClass">
+      <p class="player-name font-medium text-text-primary" :class="textSizeClass">
         {{ player.username }}
         <span v-if="player.isOwner" class="ml-2 text-yellow-400">👑</span>
       </p>
       <div class="flex items-end gap-3 mt-2">
-        <p class="player-score font-medium text-white" :class="scoreSizeClass">
+        <p class="player-score font-medium text-text-primary" :class="scoreSizeClass">
           {{ player.score }} pts
         </p>
-        <p v-if="player.combo > 0" class="text-gray-300" :class="comboSizeClass">
+        <p v-if="player.combo > 0" class="text-text-secondary" :class="comboSizeClass">
           x{{ getMultiplier(player.combo) }}
         </p>
       </div>
       <!-- Combo bar -->
-      <div class="w-full bg-gray-700 h-1 mt-2 rounded-full overflow-hidden">
+      <div class="w-full bg-surface-alt h-1 mt-2 rounded-full overflow-hidden">
         <div class="h-full transition-all duration-300"
           :style="{ width: `${Math.min(player.combo * 25, 100)}%`, backgroundColor: playerColor }"></div>
       </div>

@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: [
     "./app/components/**/*.{js,vue,ts}",
     "./app/layouts/**/*.vue",
@@ -11,16 +12,29 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: "#353F54",
+        // Theme-aware colors (use CSS variables)
+        background: "var(--color-background)",
+        surface: "var(--color-surface)",
+        "surface-alt": "var(--color-surface-alt)",
+        border: "var(--color-border)",
+        text: {
+          primary: "var(--color-text-primary)",
+          secondary: "var(--color-text-secondary)",
+          muted: "var(--color-text-muted)",
+        },
+        word: {
+          bg: "var(--color-word-bg)",
+          border: "var(--color-word-border)",
+          text: "var(--color-word-text)",
+          typed: "var(--color-word-typed)",
+        },
+        input: {
+          bg: "var(--color-input-bg)",
+          border: "var(--color-input-border)",
+        },
+        // Static colors (not theme-dependent)
         grey: "#E5E5E5",
         red: "#FF5E73",
-        word: {
-          default: "#D6D6D6",
-          font: {
-            default: "#A9A9A9",
-            fill: "#7C7C7C",
-          },
-        },
         player: {
           "dark-pink": "#B85EFF",
           "light-pink": "#FF5EBA",

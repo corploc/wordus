@@ -12,11 +12,11 @@
 
     <!-- Word container with dynamic border color -->
     <div
-      class="word-container py-3 px-12 rounded-3xl bg-white border-[3px]"
+      class="word-container py-3 px-12 rounded-3xl bg-word-bg border-[3px] transition-colors"
       :style="{ borderColor: borderColor }"
     >
-      <p class="text-word-font-fill text-xl font-semibold lowercase">
-        <span class="text-green-600">{{ word.typed }}</span>{{ word.text.slice(word.typed.length) }}
+      <p class="text-word-text text-xl font-semibold lowercase">
+        <span class="text-word-typed">{{ word.typed }}</span>{{ word.text.slice(word.typed.length) }}
       </p>
     </div>
   </div>

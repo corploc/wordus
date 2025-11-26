@@ -1,19 +1,19 @@
 <template>
   <section class="flex-1 max-w-xl w-full mx-auto px-4 py-8 flex flex-col justify-center">
       <!-- Settings and Start Button -->
-      <div class="bg-gray-800 p-8 rounded-xl">
-        <h3 class="text-2xl font-bold text-white mb-6">PREFERENCES DE PARTIE</h3>
+      <div class="bg-surface-alt p-8 rounded-xl transition-colors">
+        <h3 class="text-2xl font-bold text-text-primary mb-6">PREFERENCES DE PARTIE</h3>
 
         <div class="space-y-4 mb-8">
-          <p class="text-xl text-white">
+          <p class="text-xl text-text-primary">
             <span class="font-medium">Durée de la partie :</span>
             <span class="text-player-blue ml-2">{{ room.settings.duration }} sec.</span>
           </p>
-          <p class="text-xl text-white">
+          <p class="text-xl text-text-primary">
             <span class="font-medium">Mots affichés en même temps :</span>
             <span class="text-player-green ml-2">{{ room.settings.wordCount }} mots</span>
           </p>
-          <p class="text-xl text-white">
+          <p class="text-xl text-text-primary">
             <span class="font-medium">Langue des mots :</span>
             <span class="ml-2">{{ getLanguageName(room.settings.language) }}</span>
           </p>
@@ -21,7 +21,7 @@
 
         <!-- Invite Link -->
         <div class="mb-8">
-          <label class="block mb-3 text-base font-medium text-word-font-fill">
+          <label class="block mb-3 text-base font-medium text-text-secondary">
             Invite tes amis à jouer !
           </label>
           <div class="flex gap-3">
@@ -30,13 +30,13 @@
               <input
                 :value="isLinkVisible ? inviteLink : '•'.repeat(inviteLink.length)"
                 readonly
-                class="w-full px-4 py-3 pr-12 bg-gray-700 text-white rounded-lg border border-gray-600"
+                class="w-full px-4 py-3 pr-12 bg-surface text-text-primary rounded-lg border border-border transition-colors"
               />
               <!-- Toggle icon button inside input -->
               <button
                 @click="isLinkVisible = !isLinkVisible"
                 type="button"
-                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary hover:text-text-primary transition"
               >
                 <!-- Eye icon (visible) -->
                 <svg v-if="isLinkVisible" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -63,7 +63,7 @@
           class="w-full px-8 py-3 bg-player-blue hover:bg-player-blue/80 text-white text-xl font-bold rounded-lg transition">
           Lancer la partie !
         </button>
-        <p v-else class="text-center text-gray-400 text-lg">
+        <p v-else class="text-center text-text-secondary text-lg">
           En attente du lancement de la partie...
         </p>
       </div>

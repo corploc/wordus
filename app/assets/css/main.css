@@ -1,14 +1,65 @@
 @import url('https://fonts.googleapis.com/css2?family=Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 * {
   font-family: 'Spartan', sans-serif;
 }
 
+/* ========================================
+   THEME VARIABLES
+   ======================================== */
+
+:root {
+  /* Dark theme (default) */
+  --color-background: #353F54;
+  --color-surface: #2d3548;
+  --color-surface-alt: #1f2937;
+  --color-border: #454d5c;
+
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #9ca3af;
+  --color-text-muted: #6b7280;
+
+  --color-word-bg: #ffffff;
+  --color-word-border: #D6D6D6;
+  --color-word-text: #7C7C7C;
+  --color-word-typed: #2CDA75;
+
+  --color-input-bg: transparent;
+  --color-input-border: #4b5563;
+}
+
+.light {
+  --color-background: #f3f4f6;
+  --color-surface: #ffffff;
+  --color-surface-alt: #d9dde4;
+  --color-border: #d1d5db;
+
+  --color-text-primary: #1f2937;
+  --color-text-secondary: #6b7280;
+  --color-text-muted: #9ca3af;
+
+  --color-word-bg: #ffffff;
+  --color-word-border: #d1d5db;
+  --color-word-text: #4b5563;
+  --color-word-typed: #16a34a;
+
+  --color-input-bg: #ffffff;
+  --color-input-border: #d1d5db;
+}
+
+/* ========================================
+   BASE STYLES
+   ======================================== */
+
 @layer base {
   body {
-    @apply bg-background;
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 }
 
@@ -17,7 +68,10 @@
   display: none !important;
 }
 
-/* Player color utilities */
+/* ========================================
+   PLAYER COLOR UTILITIES
+   ======================================== */
+
 .color-yellow {
   color: theme('colors.player.yellow');
 }

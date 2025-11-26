@@ -98,11 +98,19 @@ export default defineNuxtConfig({
   modules: [
     "@pinia/nuxt",
     "@nuxtjs/tailwindcss",
+    "@nuxtjs/color-mode",
     "nuxt-toast",
     "@nuxtjs/robots",
     "@nuxtjs/sitemap",
     "nuxt-umami",
   ],
+
+  colorMode: {
+    classSuffix: '',
+    preference: 'system',
+    fallback: 'dark',
+    storageKey: 'wordus-theme'
+  },
 
   toast: {
     settings: {

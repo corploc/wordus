@@ -2,10 +2,10 @@
   <div class="h-full max-w-6xl mx-auto px-4 py-12 flex flex-col justify-center">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <!-- Room Creation Section -->
-      <section class="bg-gray-800 p-8 rounded-xl shadow-xl flex justify-between flex-col">
-        <h2 class="text-2xl font-bold text-white mb-6">REJOINDRE LA PARTIE</h2>
+      <section class="bg-surface-alt p-8 rounded-xl shadow-xl flex justify-between flex-col transition-colors">
+        <h2 class="text-2xl font-bold text-text-primary mb-6">REJOINDRE LA PARTIE</h2>
 
-          <p class="text-white font-bold text-4xl text-center">
+          <p class="text-text-primary font-bold text-4xl text-center">
             {{ roomCode }}
           </p>
 
@@ -16,11 +16,11 @@
       </section>
 
       <!-- User Choice Section (centered) -->
-      <section class="bg-gray-800 p-8 rounded-xl shadow-xl flex flex-col items-center">
+      <section class="bg-surface-alt p-8 rounded-xl shadow-xl flex flex-col items-center transition-colors">
         <AvatarPicker :avatar="avatar!" :color="avatarColor!" @random="randomizeAvatar" />
 
         <div class="w-full mt-8">
-          <label for="username" class="block mb-3 text-center text-base font-medium text-word-font-fill">
+          <label for="username" class="block mb-3 text-center text-base font-medium text-text-secondary">
             Choisis ton pseudo !
           </label>
           <div class="relative w-full">
@@ -30,13 +30,13 @@
               type="text"
               placeholder="Clique sur l'icône pour générer →"
               maxlength="15"
-              class="w-full px-4 py-3 pr-12 bg-gray-700 text-white text-center rounded-lg border border-gray-600 focus:outline-none focus:border-player-yellow"
+              class="w-full px-4 py-3 pr-12 bg-surface text-text-primary text-center rounded-lg border border-border focus:outline-none focus:border-player-yellow transition-colors"
             />
             <!-- Random username icon button -->
             <button
               @click="randomizeUsername"
               type="button"
-              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary hover:text-text-primary transition"
               title="Générer un pseudo aléatoire"
             >
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">

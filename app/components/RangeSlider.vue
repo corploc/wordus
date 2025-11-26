@@ -1,6 +1,6 @@
 <template>
   <div class="range-slider">
-    <label v-if="label" :for="id" class="mb-4 text-base font-medium text-word-font-fill">
+    <label v-if="label" :for="id" class="mb-4 text-base font-medium text-text-secondary">
       {{ label }}
     </label>
     <div class="slider-value relative w-[100%] -left-[5%] mt-4">
@@ -11,7 +11,7 @@
     </div>
     <input :id="id" type="range" :value="modelValue" :min="min" :max="max" :step="step"
       @input="$emit('update:modelValue', parseInt(($event.target as HTMLInputElement).value))"
-      class="w-full mt-5 h-[5px] bg-gray-300 rounded-md outline-none border-none appearance-none slider"
+      class="w-full mt-5 h-[5px] bg-border rounded-md outline-none border-none appearance-none slider"
       :class="sliderColorClass" />
   </div>
 </template>

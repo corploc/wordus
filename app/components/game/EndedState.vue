@@ -8,8 +8,8 @@
 
       <!-- Restart Settings (only for owner) -->
       <div class="col-span-5">
-        <div v-if="isOwner" class="bg-gray-800 p-8 rounded-xl">
-          <h3 class="text-2xl font-bold text-white mb-6">PREFERENCES DE PARTIE</h3>
+        <div v-if="isOwner" class="bg-surface-alt p-8 rounded-xl transition-colors">
+          <h3 class="text-2xl font-bold text-text-primary mb-6">PREFERENCES DE PARTIE</h3>
 
           <form @submit.prevent="handleRestartGame" class="space-y-6">
             <RangeSlider
@@ -35,13 +35,13 @@
             />
 
             <div>
-              <label for="new-language" class="block mb-2 text-base font-medium text-word-font-fill">
+              <label for="new-language" class="block mb-2 text-base font-medium text-text-secondary">
                 Langue des mots
               </label>
               <select
                 id="new-language"
                 v-model="newLanguage"
-                class="w-full px-4 py-3 bg-gray-700 text-white rounded-lg border border-gray-600 focus:outline-none focus:border-player-blue"
+                class="w-full px-4 py-3 bg-surface text-text-primary rounded-lg border border-border focus:outline-none focus:border-player-blue transition-colors"
               >
                 <option value="lat">Latin (2600 mots)</option>
                 <option value="en">Anglais (68000 mots)</option>
@@ -57,8 +57,8 @@
             </button>
           </form>
         </div>
-        <div v-else class="bg-gray-800 p-8 rounded-xl text-center">
-          <p class="text-gray-400 text-lg">En attente que l'hôte relance la partie...</p>
+        <div v-else class="bg-surface-alt p-8 rounded-xl text-center transition-colors">
+          <p class="text-text-secondary text-lg">En attente que l'hôte relance la partie...</p>
         </div>
       </div>
     </div>

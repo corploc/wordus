@@ -1,19 +1,22 @@
 <template>
-  <header class="py-6 px-8 bg-background border-b border-gray-700">
+  <header class="py-6 px-8 bg-background border-b border-border transition-colors">
     <div class="flex items-center justify-between">
-      <h1 class="text-3xl font-bold flex items-center gap-2">
-        <img src="/images/logo/logo.png" alt="Logo" class="w-12 h-12">
-        <NuxtLink to="/" class="text-white hover:opacity-80 transition">
+      <h1 class="text-3xl font-bold flex items-center gap-3">
+        <img :src="logoSrc" alt="Logo" class="w-12 h-12">
+        <NuxtLink to="/" class="text-text-primary hover:opacity-80 transition">
           Wordus.xyz
         </NuxtLink>
       </h1>
 
       <nav class="flex items-center gap-6">
+        <ClientOnly>
+          <ThemeToggle />
+        </ClientOnly>
         <a
           href="https://github.com/corploc/wordus"
           target="_blank"
           rel="noopener noreferrer"
-          class="text-gray-400 hover:text-white transition"
+          class="text-text-secondary hover:text-text-primary transition"
           title="GitHub"
         >
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
@@ -25,3 +28,13 @@
     </div>
   </header>
 </template>
+
+<script setup lang="ts">
+const colorMode = useColorMode()
+
+const logoSrc = computed(() =>
+  colorMode.value === 'dark'
+    ? '/images/logo/logo.png'
+    : '/images/logo/logo_dark.png'
+)
+</script>

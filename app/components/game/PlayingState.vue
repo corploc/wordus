@@ -2,7 +2,7 @@
   <!-- NO section wrapper - fixed elements span full width -->
   <div class="flex-1 px-12 pb-8 flex flex-col min-h-0 relative">
     <!-- Center: Words Grid -->
-    <div class="flex-1 bg-gray-800 rounded-xl p-12 flex relative">
+    <div class="flex-1 bg-surface-alt rounded-xl p-12 flex relative transition-colors">
       <div class="flex-1 grid grid-cols-4 grid-rows-5 gap-6">
         <GameWord v-for="word in room.words" :key="word.id" :word="word" />
       </div>
@@ -28,10 +28,10 @@
           type="text"
           placeholder="..."
           autofocus
-          class="flex-1 px-6 py-3 bg-transparent text-white text-xl rounded-lg border-2 focus:outline-none"
+          class="flex-1 px-6 py-3 bg-input-bg text-text-primary text-xl rounded-lg border-2 focus:outline-none transition-colors"
           :style="{ borderColor: borderColor }"
           />
-          <p class="text-2xl font-medium text-white">
+          <p class="text-2xl font-medium text-text-primary">
             {{ user?.score || 0 }}
             pts
           </p>
