@@ -2,11 +2,29 @@
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
+
   nitro: {
     experimental: {
       websocket: true,
     },
+
+    preset: "cloudflare_module",
+
+    cloudflare: {
+      deployConfig: true,
+      nodeCompat: true,
+
+      wrangler: {
+        name: "app",
+        compatibility_flags: ["nodejs_compat"],
+        compatibility_date: "2025-10-26",
+        observability: {
+          logs: { enabled: true },
+        },
+      },
+    },
   },
+
   css: ["~/assets/css/main.css"],
 
   app: {
