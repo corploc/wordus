@@ -1,3 +1,12 @@
+## [2.0.1](https://github.com/corploc/wordus/compare/v2.0.0...v2.0.1) (2025-11-26)
+
+
+### Features
+
+* Add runtime configuration for socket URL connection and create type definitions ([3f5732e](https://github.com/corploc/wordus/commit/3f5732e7b752c2d477b144d94cb5b5bc08bb9dfd))
+
+
+
 # 2.0.0 (2025-11-26)
 
 
