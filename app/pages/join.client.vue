@@ -104,8 +104,7 @@ const joinRoom = () => {
   // Validate username
   if (!username.value.trim()) {
     toast.error({
-      title: 'Error',
-      message: 'Please enter a username'
+      title: 'Un pseudo est requis',
     })
     return
   }
@@ -138,8 +137,7 @@ onMounted(() => {
   // Validate room code format
   if (!roomCode.value || roomCode.value.length < 4) {
     toast.error({
-      title: 'Error',
-      message: 'Invalid room code'
+      title: 'Code de partie invalide',
     })
     router.push('/')
   }

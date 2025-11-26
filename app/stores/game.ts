@@ -159,8 +159,7 @@ export const useGameStore = defineStore('game', () => {
     isConnected.value = false
     // Don't clear session - we want to rejoin on reconnect
     toast?.info({
-      title: 'Disconnected',
-      message: 'You have been disconnected from the server'
+      title: 'Déconnecté'
     })
   }
 
@@ -179,7 +178,7 @@ export const useGameStore = defineStore('game', () => {
     }
 
     toast?.error({
-      title: 'Error',
+      title: 'Erreur',
       message: errorMessage
     })
   }
@@ -193,7 +192,7 @@ export const useGameStore = defineStore('game', () => {
     console.log('[Socket] Game started', data)
     room.value = data.room
     toast?.success({
-      title: 'Game Started'
+      title: 'Partie lancée'
     })
   }
 
@@ -225,13 +224,11 @@ export const useGameStore = defineStore('game', () => {
 
     if (data.correct) {
       toast?.success({
-        title: 'Correct!',
-        message: `+${data.points} points`
+        title: `+${data.points} points`
       })
     } else {
       toast?.error({
-        title: 'Incorrect!',
-        message: `${data.points} points`
+        title: `${data.points} points`
       })
     }
   }
@@ -254,7 +251,7 @@ export const useGameStore = defineStore('game', () => {
     console.log('[Socket] Game finished', data)
     room.value = data.room
     toast?.success({
-      title: 'Game Finished'
+      title: 'Partie terminée'
     })
   }
 
@@ -272,10 +269,10 @@ export const useGameStore = defineStore('game', () => {
       timestamp: Date.now()
     })
 
-    toast?.success({
-      title: 'User created',
-      message: 'You have been created'
-    })
+    // toast?.success({
+    //   title: 'Utilisateur créé',
+    //   message: 'Vous avez été créé'
+    // })
   }
 
   const handleSuccessHostRoom = (data: { room_id: string }) => {
@@ -285,8 +282,7 @@ export const useGameStore = defineStore('game', () => {
     updateRoomCode(data.room_id)
 
     toast?.success({
-      title: 'Room created',
-      message: `You have created room ${data.room_id}`
+      title: 'Partie créée',
     })
     router?.push(`/game`)
   }
@@ -299,8 +295,7 @@ export const useGameStore = defineStore('game', () => {
     updateRoomCode(data.room.id)
 
     toast?.success({
-      title: 'Joined room',
-      message: `You have joined room ${data.room.id}`
+      title: 'Partie rejointe',
     })
     router?.push(`/game`)
   }
@@ -311,8 +306,7 @@ export const useGameStore = defineStore('game', () => {
     user.value = data.user
 
     toast?.success({
-      title: 'Reconnected',
-      message: 'You have been reconnected to the room'
+      title: 'Reconnecté',
     })
 
     // Navigate to game page if not already there

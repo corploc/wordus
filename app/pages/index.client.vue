@@ -127,8 +127,7 @@ const randomizeUsername = () => {
 const createRoom = () => {
   if (!username.value.trim()) {
     toast.error({
-      title: 'Error',
-      message: 'Please enter a username'
+      title: 'Un pseudo est requis',
     })
     return
   }
@@ -162,15 +161,13 @@ const createRoom = () => {
 const joinRoom = () => {
   if (!username.value.trim()) {
     toast.error({
-      title: 'Error',
-      message: 'Please enter a username!'
+      title: 'Un pseudo est requis',
     })
     return
   }
   if (!roomCode.value.trim()) {
     toast.error({
-      title: 'Error',
-      message: 'Please enter a room code!'
+      title: 'Un code de partie est requis',
     })
     return
   }

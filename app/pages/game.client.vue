@@ -80,7 +80,7 @@ const formatTime = (seconds: number) => {
 // Event handlers for child components
 const handleCopyLink = () => {
   toast.success({
-    title: 'Lien copié !'
+    title: 'Lien copié'
   })
 }
 
