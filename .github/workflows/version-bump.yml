@@ -12,6 +12,9 @@ on:
           - minor
           - major
 
+permissions:
+  contents: write
+
 jobs:
   bump:
     name: Bump Version
@@ -20,7 +23,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT_TOKEN }}
           fetch-depth: 0
 
       - name: Setup Node.js
