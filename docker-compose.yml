@@ -1,0 +1,9 @@
+services:
+  wordus:
+    container_name: wordus_app
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NUXT_UMAMI_WEBSITE_ID=${NUXT_UMAMI_WEBSITE_ID}
+    restart: always
