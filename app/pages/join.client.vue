@@ -1,12 +1,6 @@
 <template>
   <div class="h-full max-w-6xl mx-auto px-4 py-12 flex flex-col justify-center">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <!-- Page Title -->
-      <!-- <div class="text-center mb-8">
-        <h1 class="text-4xl font-bold text-white mb-2">Rejoindre la partie</h1>
-        <p class="text-3xl text-player-yellow font-bold">Code: {{ roomCode }}</p>
-      </div> -->
-
       <!-- Room Creation Section -->
       <section class="bg-gray-800 p-8 rounded-xl shadow-xl flex justify-between flex-col">
         <h2 class="text-2xl font-bold text-white mb-6">REJOINDRE LA PARTIE</h2>
