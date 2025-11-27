@@ -3,66 +3,85 @@
 </p>
 
 <p align="center">
-  <strong>Jeu de frappe multijoueur en temps réel</strong>
+  <strong>Real-time multiplayer typing game</strong>
 </p>
 
 <p align="center">
   <a href="https://wordus.xyz">wordus.xyz</a> •
-  <a href="#fonctionnalités">Fonctionnalités</a> •
+  <a href="#features">Features</a> •
   <a href="#installation">Installation</a> •
   <a href="#docker">Docker</a> •
-  <a href="#contribution">Contribution</a>
+  <a href="#contributing">Contributing</a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/github/v/release/corploc/wordus" alt="GitHub Release">
+  <img src="https://img.shields.io/github/actions/workflow/status/corploc/wordus/release.yml" alt="GitHub Actions">
+  <img src="https://img.shields.io/github/license/corploc/wordus" alt="License">
+  <img src="https://img.shields.io/docker/pulls/corploc/wordus" alt="Docker Pulls">
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Nuxt-4-00DC82?logo=nuxt.js&logoColor=white" alt="Nuxt">
+  <img src="https://img.shields.io/badge/Vue-3-4FC08D?logo=vue.js&logoColor=white" alt="Vue">
+  <img src="https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white" alt="TypeScript">
+  <img src="https://img.shields.io/badge/TailwindCSS-4-06B6D4?logo=tailwindcss&logoColor=white" alt="TailwindCSS">
+  <img src="https://img.shields.io/badge/Socket.io-4-010101?logo=socket.io&logoColor=white" alt="Socket.io">
+  <img src="https://img.shields.io/badge/pnpm-F69220?logo=pnpm&logoColor=white" alt="pnpm">
 </p>
 
 ---
 
-## À propos
+## About
 
-**Wordus** est un jeu de frappe multijoueur où vous affrontez vos amis en temps réel. Créez une partie, partagez le code d'invitation et tapez les mots plus vite que vos adversaires pour grimper au scoreboard !
+**Wordus** is a multiplayer typing game where you compete against your friends in real-time. Create a game, share the invite code, and type words faster than your opponents to climb the scoreboard!
 
-## Fonctionnalités
+## Features
 
-- **Multijoueur temps réel** — Jusqu'à 6 joueurs par partie
-- **3 langues disponibles** — Français (320k mots), Anglais (68k mots), Latin (2600 mots)
-- **Paramètres personnalisables** — Durée (30-180s), nombre de mots affichés (1-8)
-- **Avatars personnalisables** — Choisissez votre avatar et pseudo
-- **Système de combo** — Enchaînez les mots pour maximiser votre score
+- **Real-time multiplayer** — Up to 6 players per game via WebSocket
+- **3 word languages** — French (320k words), English (68k words), Latin (2600 words)
+- **Bilingual interface** — French and English with automatic browser detection
+- **Light/Dark theme** — Toggle between modes with system preference detection
+- **Customizable settings** — Duration (30-180s), number of displayed words (1-8)
+- **Customizable avatars** — Choose your avatar and username
+- **Combo system** — Chain words to maximize your score with multipliers
 
-## Stack technique
+## Tech Stack
 
-| Technologie | Usage |
-|-------------|-------|
-| [Nuxt 4](https://nuxt.com) | Framework Vue.js |
-| [Vue 3](https://vuejs.org) | UI réactive |
+| Technology | Usage |
+|------------|-------|
+| [Nuxt 4](https://nuxt.com) | Vue.js framework |
+| [Vue 3](https://vuejs.org) | Reactive UI |
+| [TypeScript](https://www.typescriptlang.org) | Static typing |
 | [Pinia](https://pinia.vuejs.org) | State management |
 | [TailwindCSS](https://tailwindcss.com) | Styling |
-| [Socket.io](https://socket.io) | WebSockets temps réel |
+| [Socket.io](https://socket.io) | Real-time WebSockets |
 | [pnpm](https://pnpm.io) | Package manager |
 
 ## Installation
 
-### Prérequis
+### Prerequisites
 
 - Node.js 20+
 - pnpm
 
-### Développement
+### Development
 
 ```bash
-# Cloner le repo
+# Clone the repo
 git clone https://github.com/corploc/wordus.git
 cd wordus
 
-# Installer les dépendances
+# Install dependencies
 pnpm install
 
-# Lancer le serveur de développement
+# Start the development server
 pnpm dev
 ```
 
-L'application sera disponible sur `http://localhost:3000`
+The application will be available at `http://localhost:3000`
 
-### Build de production
+### Production Build
 
 ```bash
 pnpm build
@@ -86,33 +105,41 @@ docker build -t wordus \
 docker run -p 3000:3000 wordus
 ```
 
+### Docker Hub Image
+
+```bash
+docker pull corploc/wordus
+docker run -p 3000:3000 corploc/wordus
+```
+
 ## Configuration
 
-| Variable | Description | Défaut |
-|----------|-------------|--------|
-| `NUXT_UMAMI_WEBSITE_ID` | ID du site Umami (analytics) | - |
-| `NUXT_UMAMI_HOST` | Host Umami | `https://cloud.umami.is` |
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `NUXT_UMAMI_WEBSITE_ID` | Umami site ID (analytics) | - |
+| `NUXT_UMAMI_HOST` | Umami host | `https://cloud.umami.is` |
+| `NUXT_PUBLIC_BASE_URL` | Base URL of the application (used for socket connections) | `http://localhost:3000` |
 
-## Contribution
+## Contributing
 
-Les contributions sont les bienvenues !
+Contributions are welcome!
 
-1. Fork le projet
-2. Créez votre branche (`git checkout -b feature/ma-feature`)
-3. Committez vos changements (`git commit -m 'feat: ajout de ma feature'`)
-4. Push sur la branche (`git push origin feature/ma-feature`)
-5. Ouvrez une Pull Request
+1. Fork the project
+2. Create your branch (`git checkout -b feature/my-feature`)
+3. Commit your changes (`git commit -m 'feat: add my feature'`)
+4. Push to the branch (`git push origin feature/my-feature`)
+5. Open a Pull Request
 
-### Conventions de commit
+### Commit Conventions
 
-Ce projet utilise [Conventional Commits](https://www.conventionalcommits.org/) :
+This project uses [Conventional Commits](https://www.conventionalcommits.org/):
 
-- `feat:` nouvelle fonctionnalité
-- `fix:` correction de bug
+- `feat:` new feature
+- `fix:` bug fix
 - `docs:` documentation
-- `style:` formatage
+- `style:` formatting
 - `refactor:` refactoring
-- `test:` ajout de tests
+- `test:` adding tests
 
 ## License
 
