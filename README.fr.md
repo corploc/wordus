@@ -36,6 +36,16 @@
 
 **Wordus** est un jeu de frappe multijoueur où vous affrontez vos amis en temps réel. Créez une partie, partagez le code d'invitation et tapez les mots plus vite que vos adversaires pour grimper au scoreboard !
 
+## Captures d'écran
+
+| Sombre | Clair |
+|:------:|:-----:|
+| ![Accueil Sombre](images/index_dark.png) | ![Accueil Clair](images/index_light.png) |
+| ![Attente Sombre](images/game_waiting_dark.png) | ![Attente Clair](images/game_waiting_light.png) |
+| ![Rejoindre Sombre](images/join_dark.png) | ![Rejoindre Clair](images/join_light.png) |
+| ![Jeu Sombre](images/game_dark.png) | ![Jeu Clair](images/game_light.png) |
+| ![Résultats Sombre](images/game_results_dark.png) | ![Résultats Clair](images/game_results_light.png) |
+
 ## Fonctionnalités
 
 - **Multijoueur temps réel** — Jusqu'à 6 joueurs par partie via WebSocket

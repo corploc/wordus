@@ -36,6 +36,16 @@
 
 **Wordus** is a multiplayer typing game where you compete against your friends in real-time. Create a game, share the invite code, and type words faster than your opponents to climb the scoreboard!
 
+## Screenshots
+
+| Dark | Light |
+|:----:|:-----:|
+| ![Home Dark](images/index_dark.png) | ![Home Light](images/index_light.png) |
+| ![Waiting Dark](images/game_waiting_dark.png) | ![Waiting Light](images/game_waiting_light.png) |
+| ![Join Dark](images/join_dark.png) | ![Join Light](images/join_light.png) |
+| ![Game Dark](images/game_dark.png) | ![Game Light](images/game_light.png) |
+| ![Results Dark](images/game_results_dark.png) | ![Results Light](images/game_results_light.png) |
+
 ## Features
 
 - **Real-time multiplayer** — Up to 6 players per game via WebSocket
