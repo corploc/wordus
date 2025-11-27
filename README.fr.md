@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <strong>Jeu de frappe multijoueur en temps réel</strong>
+  <strong>Jeu de dactylographie multijoueur en temps réel</strong>
 </p>
 
 <p align="center">
@@ -34,7 +34,7 @@
 
 ## À propos
 
-**Wordus** est un jeu de frappe multijoueur où vous affrontez vos amis en temps réel. Créez une partie, partagez le code d'invitation et tapez les mots plus vite que vos adversaires pour grimper au scoreboard !
+**Wordus** est un jeu de dactylographie multijoueur où vous affrontez vos amis en temps réel. Créez une partie, partagez le code d'invitation et tapez les mots plus vite que vos adversaires pour grimper au scoreboard !
 
 ## Captures d'écran
 

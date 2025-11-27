@@ -13,7 +13,7 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: "Wordus - Jeu de frappe multijoueur en temps réel",
+      title: "Wordus - Jeu de dactylographie multijoueur en temps réel",
       htmlAttrs: { lang: "fr" },
       link: [
         { rel: "canonical", href: "https://wordus.xyz" },
@@ -57,7 +57,7 @@ export default defineNuxtConfig({
         {
           name: "description",
           content:
-            "Wordus est un jeu de frappe multijoueur en temps réel : crée ta partie (langue FR/EN/latin, 30–180 s, 1–8 mots), choisis ton avatar/pseudo, partage le code d’invitation et grimpe au scoreboard en devinant les mots plus vite que tes amis",
+            "Wordus est un jeu de dactylographie multijoueur en temps réel : crée ta partie (langue FR/EN/latin, 30–180 s, 1–8 mots), choisis ton avatar/pseudo, partage le code d’invitation et grimpe au scoreboard en devinant les mots plus vite que tes amis",
         },
         {
           name: "viewport",
@@ -74,7 +74,7 @@ export default defineNuxtConfig({
         { property: "og:site_name", content: "Wordus.xyz" },
         { property: "og:type", content: "website" },
         { property: "og:locale", content: "fr_FR" },
-        { property: 'og:title', content: "Wordus - Jeu de frappe multijoueur en temps réel" },
+        { property: 'og:title', content: "Wordus - Jeu de dactylographie multijoueur en temps réel" },
         { property: 'og:description', content: "Wordus.xyz — Tape plus vite que tes amis : 30 à 180 s, 1 à 8 mots, FR/EN/latin, jusqu’à 6 joueurs" },
         { property: 'og:url', content: "https://wordus.xyz" },
         { property: 'og:image', content: "https://wordus.xyz/images/ogs/index.png" },
@@ -83,7 +83,7 @@ export default defineNuxtConfig({
         { property: 'og:image:alt', content: "Wordus.xyz OG image" },
         { property: 'og:image:type', content: 'image/png' },
 
-        { name: "twitter:title", content: 'Wordus - Jeu de frappe multijoueur en temps réel' },
+        { name: "twitter:title", content: 'Wordus - Jeu de dactylographie multijoueur en temps réel' },
         { name: "twitter:description", content: 'Wordus.xyz — Tape plus vite que tes amis : 30 à 180 s, 1 à 8 mots, FR/EN/latin, jusqu’à 6 joueurs' },
         { name: "twitter:image", content: "https://wordus.xyz/images/ogs/index.png" },
         { name: "twitter:creator", content: "@hokanosekai" },
@@ -163,7 +163,7 @@ export default defineNuxtConfig({
         images: [
           {
             loc: "https://wordus.xyz/images/ogs/index.png",
-            caption: "Wordus - Jeu de frappe multijoueur en temps réel",
+            caption: "Wordus - Jeu de dactylographie multijoueur en temps réel",
             title: "Wordus.xyz",
             license: "https://github.com/corploc/wordus/blob/main/LICENSE",
           },
@@ -175,7 +175,7 @@ export default defineNuxtConfig({
           {
             loc: "https://wordus.xyz/images/ogs/index.png",
             caption:
-              "Wordus - Rejoindre une partie de frappe multijoueur en temps réel",
+              "Wordus - Rejoindre une partie de dactylographie multijoueur en temps réel",
             title: "Wordus.xyz",
             license: "https://github.com/corploc/wordus/blob/main/LICENSE",
           },
