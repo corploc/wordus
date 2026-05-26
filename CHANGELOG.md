@@ -1,3 +1,19 @@
+## [2.1.1](https://github.com/corploc/wordus/compare/v2.1.0...v2.1.1) (2026-05-26)
+
+
+### Bug Fixes
+
+* Update terminology from "jeu de frappe" to "jeu de dactylographie" in README and configuration files ([e6ead23](https://github.com/corploc/wordus/commit/e6ead234a9064431dbc09a2c60fcdd8d8db66e68))
+
+
+### Features
+
+* Add French README file and update English README with new features and installation instructions ([b026f7c](https://github.com/corploc/wordus/commit/b026f7c747b73a293acc74271371f66fe742d8db))
+* Add MIT License to the repository ([f0e8eb5](https://github.com/corploc/wordus/commit/f0e8eb59a156d9288a63a2c4b0c65ff2a5937ca1))
+* Add screenshots to README and include image assets for dark and light themes ([67fe1b2](https://github.com/corploc/wordus/commit/67fe1b2f716f53c86cba81197b0f2497fe79d37d))
+
+
+
 # [2.1.0](https://github.com/corploc/wordus/compare/v2.0.2...v2.1.0) (2025-11-26)
 
 
