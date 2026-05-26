@@ -17,9 +17,11 @@ ARG NUXT_UMAMI_HOST
 ENV NUXT_UMAMI_WEBSITE_ID=$NUXT_UMAMI_WEBSITE_ID
 ENV NUXT_UMAMI_HOST=$NUXT_UMAMI_HOST
 
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml .npmrc* ./
 
-RUN pnpm install --frozen-lockfile
+# pnpm 10+ rejects packages < 1d old by default; relax for Dependabot-pinned
+# lockfiles. Also approve build scripts allowlisted in package.json.pnpm.
+RUN pnpm install --frozen-lockfile --config.minimumReleaseAge=0
 
 COPY . .
 
