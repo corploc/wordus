@@ -19,9 +19,11 @@ ENV NUXT_UMAMI_HOST=$NUXT_UMAMI_HOST
 
 COPY package.json pnpm-lock.yaml .npmrc* ./
 
-# pnpm 10+ rejects packages < 1d old by default; relax for Dependabot-pinned
-# lockfiles. Also approve build scripts allowlisted in package.json.pnpm.
-RUN pnpm install --frozen-lockfile --config.minimumReleaseAge=0
+# pnpm 10+: relax 1d minimum-release-age (Dependabot pulls fresh deps),
+# and explicitly allow native-build packages so postinstall scripts can run.
+RUN pnpm install --frozen-lockfile \
+      --config.minimumReleaseAge=0 \
+      --allow-build='@parcel/watcher,esbuild'
 
 COPY . .
 
