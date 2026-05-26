@@ -37,7 +37,11 @@ jobs:
           version: latest
 
       - name: Install dependencies
-        run: pnpm install
+        env:
+          # Dependabot regenerates the lockfile with fresh packages; pnpm 10+
+          # rejects entries published < 1d ago by default. We trust Dependabot.
+          NPM_CONFIG_MINIMUM_RELEASE_AGE: "0"
+        run: pnpm install --config.minimumReleaseAge=0
 
       - name: Configure Git
         run: |
