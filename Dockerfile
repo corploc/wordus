@@ -4,7 +4,10 @@
 
 # Base Stage
 FROM node:22-alpine AS base
-RUN corepack enable && corepack prepare pnpm@latest --activate
+# Pin pnpm 9 — v10 added strict ignored-builds enforcement that breaks our build
+# even with package.json#pnpm.onlyBuiltDependencies. Bump when v10 ergonomics
+# stabilize and esbuild + @parcel/watcher are allowlistable cleanly.
+RUN corepack enable && corepack prepare pnpm@9.15.4 --activate
 WORKDIR /app
 
 # Build Stage
@@ -17,13 +20,9 @@ ARG NUXT_UMAMI_HOST
 ENV NUXT_UMAMI_WEBSITE_ID=$NUXT_UMAMI_WEBSITE_ID
 ENV NUXT_UMAMI_HOST=$NUXT_UMAMI_HOST
 
-COPY package.json pnpm-lock.yaml .npmrc* ./
+COPY package.json pnpm-lock.yaml ./
 
-# pnpm 10+: relax 1d minimum-release-age and don't fail on un-approved builds.
-# Native build deps are listed in package.json#pnpm.onlyBuiltDependencies.
-RUN pnpm install --frozen-lockfile \
-      --config.minimumReleaseAge=0 \
-      --config.strictBuilds=false
+RUN pnpm install --frozen-lockfile
 
 COPY . .
 
