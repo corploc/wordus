@@ -1,3 +1,7 @@
+## [2.1.5](https://github.com/corploc/wordus/compare/v2.1.4...v2.1.5) (2026-05-26)
+
+
+
 ## [2.1.4](https://github.com/corploc/wordus/compare/v2.1.3...v2.1.4) (2026-05-26)
 
 
