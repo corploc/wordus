@@ -61,3 +61,23 @@ jobs:
             NUXT_UMAMI_HOST=${{ secrets.NUXT_UMAMI_HOST }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+  deploy:
+    name: Trigger Komodo Redeploy
+    runs-on: ubuntu-latest
+    needs: docker
+    steps:
+      - name: POST signed webhook to Komodo
+        env:
+          KOMODO_WEBHOOK_URL: https://webhook.minist.re/komodo/listener/github/stack/wordus/deploy
+          KOMODO_WEBHOOK_SECRET: ${{ secrets.KOMODO_WEBHOOK_SECRET }}
+          # Komodo verifies body.ref strips "refs/heads/" then matches stack.config.branch.
+          # Workflow runs on tag push but webhook payload needs refs/heads/<branch> to pass.
+          PAYLOAD: '{"ref":"refs/heads/main","repository":{"full_name":"${{ github.repository }}"},"after":"${{ github.sha }}","tag":"${{ github.ref_name }}"}'
+        run: |
+          set -euo pipefail
+          SIG="sha256=$(printf '%s' "$PAYLOAD" | openssl dgst -sha256 -hmac "$KOMODO_WEBHOOK_SECRET" -hex | awk '{print $2}')"
+          curl -sSf -X POST "$KOMODO_WEBHOOK_URL" \
+            -H "Content-Type: application/json" \
+            -H "X-Hub-Signature-256: $SIG" \
+            -d "$PAYLOAD"
