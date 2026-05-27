@@ -52,6 +52,7 @@
             </div>
 
             <button @click="handleCopyLink"
+              data-umami-event="invite-copied"
               class="px-6 py-3 bg-player-yellow hover:bg-player-yellow/80 text-white font-bold rounded-lg transition">
               {{ $t('game.copy') }}
             </button>
