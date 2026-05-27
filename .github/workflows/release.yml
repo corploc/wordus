@@ -56,9 +56,6 @@ jobs:
           tags: |
             ${{ env.DOCKER_IMAGE }}:latest
             ${{ env.DOCKER_IMAGE }}:${{ github.ref_name }}
-          build-args: |
-            NUXT_UMAMI_WEBSITE_ID=${{ secrets.NUXT_UMAMI_WEBSITE_ID }}
-            NUXT_UMAMI_HOST=${{ secrets.NUXT_UMAMI_HOST }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 

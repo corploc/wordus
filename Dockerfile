@@ -13,12 +13,8 @@ WORKDIR /app
 # Build Stage
 FROM base AS build
 
-# Set Umami Analytics environment variables
-# Needed at build time for Nuxt configuration
-ARG NUXT_UMAMI_WEBSITE_ID
-ARG NUXT_UMAMI_HOST
-ENV NUXT_UMAMI_WEBSITE_ID=$NUXT_UMAMI_WEBSITE_ID
-ENV NUXT_UMAMI_HOST=$NUXT_UMAMI_HOST
+# No analytics config baked in — Umami host/id are runtime env
+# (NUXT_PUBLIC_UMAMI_*), so this image is environment-agnostic.
 
 COPY package.json pnpm-lock.yaml ./
 

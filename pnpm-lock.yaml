@@ -44,9 +44,6 @@ importers:
       nuxt-toast:
         specifier: ^1.4.0
         version: 1.4.0(izitoast@1.4.0)(magicast@0.5.3)
-      nuxt-umami:
-        specifier: ^3.2.1
-        version: 3.2.1(magicast@0.5.3)
       pinia:
         specifier: ^3.0.4
         version: 3.0.4(typescript@5.9.3)(vue@3.5.34(typescript@5.9.3))
@@ -4114,9 +4111,6 @@ packages:
     peerDependencies:
       izitoast: ^1.4.0
 
-  nuxt-umami@3.2.1:
-    resolution: {integrity: sha512-82cf3kcrMn4Iq0rJ2Blfl48AqLWqRubEpxOinOoxqW7taZAd5SgZcCdCj7y4qXSt0W5DhBYgaq4IboyGFHoVUQ==}
-
   nuxt@4.4.6:
     resolution: {integrity: sha512-QAApJpAx3yGf3pYudALkInuBfv0WkHCiol6ntTvh/lwKwYrcU/MRI1nLNGt0QNyUCgBWdOQukd3z67VJ2xGd0Q==}
     engines: {node: ^22.12.0 || ^24.11.0 || >=26.0.0}
@@ -4689,9 +4683,6 @@ packages:
     resolution: {integrity: sha512-arB9d3ENdKva2fxRnSjwBEXfK1npgyci7ZZuwysgAp7ORjHSyxz6oqIjTEv8R0Ydl4Ll7uOAZXL4vbkhGIizCg==}
     engines: {node: '>=10'}
     hasBin: true
-
-  request-ip@3.3.0:
-    resolution: {integrity: sha512-cA6Xh6e0fDBBBwH77SLJaJPBmD3nWVAcF9/XAcsrIHdjhFzFiB5aNQFytdjCGPezU3ROwrR11IddKAM08vohxA==}
 
   require-directory@2.1.1:
     resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}
@@ -6826,7 +6817,7 @@ snapshots:
       defu: 6.1.7
       h3: 1.15.11
       nuxt-site-config: 4.0.8(@nuxt/schema@4.4.6)(magicast@0.5.3)(nuxt@4.4.6(@babel/plugin-syntax-jsx@7.29.7(@babel/core@7.29.7))(@babel/plugin-syntax-typescript@7.29.7(@babel/core@7.29.7))(@parcel/watcher@2.5.6)(@types/node@24.10.1)(@vue/compiler-sfc@3.5.34)(cac@6.7.14)(db0@0.3.4)(eslint@9.39.1(jiti@2.7.0))(ioredis@5.11.0)(magicast@0.5.3)(meow@13.2.0)(optionator@0.9.4)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.34(typescript@5.9.3)))(rollup-plugin-visualizer@7.0.1(rollup@4.60.4))(rollup@4.60.4)(srvx@0.11.16)(terser@5.48.0)(typescript@5.9.3)(vite@7.3.3(@types/node@24.10.1)(jiti@2.7.0)(terser@5.48.0)(yaml@2.9.0))(yaml@2.9.0))(vite@7.3.3(@types/node@24.10.1)(jiti@2.7.0)(terser@5.48.0)(yaml@2.9.0))(vue@3.5.34(typescript@5.9.3))
-      nuxtseo-shared: 5.1.3(a9d0b5ae06cdb8fd2517bcf94fcae546)
+      nuxtseo-shared: 5.1.3(pfbvvlkxu3imoinecaadxkgh2m)
       pathe: 2.0.3
       pkg-types: 2.3.1
       ufo: 1.6.4
@@ -6844,7 +6835,7 @@ snapshots:
       defu: 6.1.7
       fast-xml-parser: 5.8.0
       nuxt-site-config: 4.0.8(@nuxt/schema@4.4.6)(magicast@0.5.3)(nuxt@4.4.6(@babel/plugin-syntax-jsx@7.29.7(@babel/core@7.29.7))(@babel/plugin-syntax-typescript@7.29.7(@babel/core@7.29.7))(@parcel/watcher@2.5.6)(@types/node@24.10.1)(@vue/compiler-sfc@3.5.34)(cac@6.7.14)(db0@0.3.4)(eslint@9.39.1(jiti@2.7.0))(ioredis@5.11.0)(magicast@0.5.3)(meow@13.2.0)(optionator@0.9.4)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.34(typescript@5.9.3)))(rollup-plugin-visualizer@7.0.1(rollup@4.60.4))(rollup@4.60.4)(srvx@0.11.16)(terser@5.48.0)(typescript@5.9.3)(vite@7.3.3(@types/node@24.10.1)(jiti@2.7.0)(terser@5.48.0)(yaml@2.9.0))(yaml@2.9.0))(vite@7.3.3(@types/node@24.10.1)(jiti@2.7.0)(terser@5.48.0)(yaml@2.9.0))(vue@3.5.34(typescript@5.9.3))
-      nuxtseo-shared: 5.1.3(a9d0b5ae06cdb8fd2517bcf94fcae546)
+      nuxtseo-shared: 5.1.3(pfbvvlkxu3imoinecaadxkgh2m)
       ofetch: 1.5.1
       pathe: 2.0.3
       pkg-types: 2.3.1
@@ -9767,7 +9758,7 @@ snapshots:
       '@nuxt/kit': 4.4.6(magicast@0.5.3)
       h3: 1.15.11
       nuxt-site-config-kit: 4.0.8(magicast@0.5.3)(vue@3.5.34(typescript@5.9.3))
-      nuxtseo-shared: 5.1.3(a9d0b5ae06cdb8fd2517bcf94fcae546)
+      nuxtseo-shared: 5.1.3(pfbvvlkxu3imoinecaadxkgh2m)
       pathe: 2.0.3
       pkg-types: 2.3.1
       site-config-stack: 4.0.8(vue@3.5.34(typescript@5.9.3))
@@ -9796,13 +9787,6 @@ snapshots:
     dependencies:
       '@nuxt/kit': 4.2.1(magicast@0.5.3)
       izitoast: 1.4.0
-    transitivePeerDependencies:
-      - magicast
-
-  nuxt-umami@3.2.1(magicast@0.5.3):
-    dependencies:
-      '@nuxt/kit': 3.20.1(magicast@0.5.3)
-      request-ip: 3.3.0
     transitivePeerDependencies:
       - magicast
 
@@ -9936,7 +9920,7 @@ snapshots:
       - xml2js
       - yaml
 
-  nuxtseo-shared@5.1.3(a9d0b5ae06cdb8fd2517bcf94fcae546):
+  nuxtseo-shared@5.1.3(pfbvvlkxu3imoinecaadxkgh2m):
     dependencies:
       '@clack/prompts': 1.4.0
       '@nuxt/devtools-kit': 4.0.0-alpha.3(magicast@0.5.3)(vite@7.3.3(@types/node@24.10.1)(jiti@2.7.0)(terser@5.48.0)(yaml@2.9.0))
@@ -10577,8 +10561,6 @@ snapshots:
       chalk: 4.1.2
       glob: 7.2.3
       yargs: 17.7.2
-
-  request-ip@3.3.0: {}
 
   require-directory@2.1.1: {}
 

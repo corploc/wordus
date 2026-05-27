@@ -103,7 +103,6 @@ export default defineNuxtConfig({
     "nuxt-toast",
     "@nuxtjs/robots",
     "@nuxtjs/sitemap",
-    "nuxt-umami",
   ],
 
   i18n: {
@@ -184,15 +183,17 @@ export default defineNuxtConfig({
     ],
   },
 
-  umami: {
-    id: process.env.NUXT_UMAMI_WEBSITE_ID,
-    host: process.env.NUXT_UMAMI_HOST || "https://cloud.umami.is",
-    autoTrack: true,
-  },
-
   runtimeConfig: {
     public: {
       baseURL: "http://localhost:3000",
+      // Umami analytics — RUNTIME config, set per-env via NUXT_PUBLIC_UMAMI_HOST
+      // and NUXT_PUBLIC_UMAMI_ID at container start. Empty = no tracking (the
+      // umami plugin injects the script only when both are set). The built image
+      // is analytics-agnostic — config is applied at deploy, never baked.
+      umami: {
+        host: "",
+        id: "",
+      },
     },
   },
 });
