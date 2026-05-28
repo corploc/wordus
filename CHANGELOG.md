@@ -1,3 +1,16 @@
+# [2.2.0](https://github.com/corploc/wordus/compare/v2.1.4...v2.2.0) (2026-05-28)
+
+
+### Features
+
+* **analytics:** add event name constants ([baffdc0](https://github.com/corploc/wordus/commit/baffdc0ae82ce2eb2dbebef0b4841896e2b5c7d3))
+* **analytics:** add useUmami composable for custom event tracking ([793d590](https://github.com/corploc/wordus/commit/793d590332d0f9309075a42c4d0b0df6384be5dd))
+* **analytics:** declarative tracking on invite/theme/lang UI ([19d500c](https://github.com/corploc/wordus/commit/19d500c79d38bf27818d06d4d6861b610442f525))
+* **analytics:** enable Web Vitals collection ([a0fa003](https://github.com/corploc/wordus/commit/a0fa0035efbbca54ff4e379fb64ad83390238dde))
+* **analytics:** track funnel + reliability events in store ([bbf0cb2](https://github.com/corploc/wordus/commit/bbf0cb20a4c804b507a083ee5da6494d4ea2dbcf))
+
+
+
 ## [2.1.6](https://github.com/corploc/wordus/compare/v2.1.5...v2.1.6) (2026-05-26)
 
 
