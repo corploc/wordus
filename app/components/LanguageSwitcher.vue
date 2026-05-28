@@ -1,6 +1,8 @@
 <template>
   <button
     @click="toggleLocale"
+    data-umami-event="lang-switched"
+    :data-umami-event-lang="currentLocale === 'fr' ? 'en' : 'fr'"
     class="p-2 rounded-lg transition-colors bg-surface-alt hover:bg-surface"
     :title="currentLocale === 'fr' ? $t('languages.switchToEnglish') : $t('languages.switchToFrench')"
   >

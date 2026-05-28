@@ -1,6 +1,8 @@
 <template>
   <button
     @click="toggleTheme"
+    data-umami-event="theme-toggled"
+    :data-umami-event-theme="isDark ? 'light' : 'dark'"
     class="p-2 rounded-lg transition-colors"
     :class="isDark ? 'bg-surface-alt hover:bg-surface' : 'bg-surface-alt hover:bg-surface'"
     :title="isDark ? $t('theme.switchToLight') : $t('theme.switchToDark')"

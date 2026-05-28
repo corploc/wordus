@@ -19,6 +19,7 @@ export default defineNuxtPlugin(() => {
       {
         src: `${umami.host}/script.js`,
         "data-website-id": umami.id,
+        "data-performance": "true",
         defer: true,
       },
     ],

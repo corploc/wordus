@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import type { Socket } from 'socket.io-client'
 import type { Room, User, RoomSettings, Word, FloatingPoint } from '~/types'
 import { loadSession, saveSession, clearSession, updateRoomCode, getOrCreateSessionId } from '~/utils/session'
+import { AnalyticsEvent, KNOWN_SOCKET_ERRORS } from '~/constants/analytics'
 
 export const useGameStore = defineStore('game', () => {
   // State
@@ -20,6 +21,7 @@ export const useGameStore = defineStore('game', () => {
   let router: any = null
   let toast: any = null
   let t: any = null
+  let analytics: ReturnType<typeof useUmami> | null = null
 
   // ======================
   // Socket Lifecycle
@@ -38,6 +40,7 @@ export const useGameStore = defineStore('game', () => {
     router = useRouter()
     toast = useToast()
     t = useI18n().t
+    analytics = useUmami()
 
     // Set up all socket event listeners FIRST
     setupSocketListeners()
@@ -172,6 +175,9 @@ export const useGameStore = defineStore('game', () => {
     console.error('[Socket] Error:', errorMessage)
     error.value = errorMessage
 
+    const errorKey = Object.entries(KNOWN_SOCKET_ERRORS).find(([k]) => errorMessage.includes(k))?.[1] ?? 'unknown'
+    analytics?.track(AnalyticsEvent.SOCKET_ERROR, { error: errorKey })
+
     // If room not found during rejoin, clear session
     if (errorMessage.includes('Room not found') || errorMessage.includes('not found in room')) {
       console.log('[Socket] Room no longer exists, clearing session')
@@ -195,7 +201,21 @@ export const useGameStore = defineStore('game', () => {
 
   const handleGameStarted = (data: { room: Room }) => {
     console.log('[Socket] Game started', data)
+
+    const isRestart = room.value?.state === 'ENDED'
     room.value = data.room
+
+    analytics?.track(AnalyticsEvent.GAME_STARTED, {
+      'player-count': data.room.users.length,
+      duration: data.room.settings.duration,
+      'word-count': data.room.settings.wordCount,
+      language: data.room.settings.language,
+    })
+
+    if (isRestart) {
+      analytics?.track(AnalyticsEvent.GAME_RESTARTED)
+    }
+
     toast?.success({
       title: t('toast.gameStarted')
     })
@@ -262,6 +282,21 @@ export const useGameStore = defineStore('game', () => {
   const handleGameFinish = (data: { room: Room }) => {
     console.log('[Socket] Game finished', data)
     room.value = data.room
+
+    if (user.value) {
+      const sortedUsers = [...data.room.users].sort((a, b) => b.score - a.score)
+      const me = sortedUsers.find(u => u.sessionId === user.value!.sessionId)
+      const rank = me ? sortedUsers.indexOf(me) + 1 : 1
+
+      analytics?.track(AnalyticsEvent.GAME_ENDED, {
+        'player-count': data.room.users.length,
+        duration: data.room.settings.duration,
+        score: me?.score ?? 0,
+        rank,
+        language: data.room.settings.language,
+      })
+    }
+
     toast?.success({
       title: t('toast.gameEnded')
     })
@@ -288,6 +323,8 @@ export const useGameStore = defineStore('game', () => {
     // Update room code in localStorage
     updateRoomCode(data.room_id)
 
+    analytics?.track(AnalyticsEvent.ROOM_CREATED)
+
     toast?.success({
       title: t('toast.roomCreated'),
     })
@@ -297,6 +334,10 @@ export const useGameStore = defineStore('game', () => {
   const handleSuccessJoin = (data: { room: Room }) => {
     console.log('[Socket] Joined room', data)
     room.value = data.room
+
+    analytics?.track(AnalyticsEvent.ROOM_JOINED, {
+      'player-count': data.room.users.length,
+    })
 
     // Update room code in localStorage
     updateRoomCode(data.room.id)
@@ -311,6 +352,8 @@ export const useGameStore = defineStore('game', () => {
     console.log('[Socket] Successfully rejoined room', data)
     room.value = data.room
     user.value = data.user
+
+    analytics?.track(AnalyticsEvent.SESSION_RESTORED)
 
     toast?.success({
       title: t('toast.reconnected'),
