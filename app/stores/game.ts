@@ -168,7 +168,7 @@ export const useGameStore = defineStore('game', () => {
     })
   }
 
-  const handleError = (errorData: string | { message: string }) => {
+  const handleError = (errorData: string | { message: string; user_id?: string }) => {
     // Handle both string and object error formats
     const errorMessage = typeof errorData === 'string' ? errorData : errorData.message
 
@@ -176,7 +176,16 @@ export const useGameStore = defineStore('game', () => {
     error.value = errorMessage
 
     const errorKey = Object.entries(KNOWN_SOCKET_ERRORS).find(([k]) => errorMessage.includes(k))?.[1] ?? 'unknown'
-    analytics?.track(AnalyticsEvent.SOCKET_ERROR, { error: errorKey })
+
+    // Only track errors that concern this user (defense in depth)
+    // Errors without user_id are unicast (socket.emit) → always about us
+    const isMyError = typeof errorData === 'string' || !errorData.user_id
+      ? true
+      : errorData.user_id === user.value?.id
+
+    if (isMyError) {
+      analytics?.track(AnalyticsEvent.SOCKET_ERROR, { error: errorKey })
+    }
 
     // If room not found during rejoin, clear session
     if (errorMessage.includes('Room not found') || errorMessage.includes('not found in room')) {
