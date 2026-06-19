@@ -2,7 +2,7 @@
   "name": "wordus",
   "type": "module",
   "private": true,
-  "version": "2.2.0",
+  "version": "2.2.1",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",

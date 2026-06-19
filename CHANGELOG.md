@@ -1,3 +1,12 @@
+## [2.2.1](https://github.com/corploc/wordus/compare/v2.2.0...v2.2.1) (2026-06-19)
+
+
+### Bug Fixes
+
+* **socket:** unicast invalid-input errors instead of broadcasting to room ([f8861c3](https://github.com/corploc/wordus/commit/f8861c377daf32f904ac3c9007e50dda291dd055))
+
+
+
 # [2.2.0](https://github.com/corploc/wordus/compare/v2.1.4...v2.2.0) (2026-05-28)
 
 
