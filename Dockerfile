@@ -3,7 +3,7 @@
 #===========================
 
 # Base Stage
-FROM node:22-alpine AS base
+FROM node:26-alpine AS base
 # Pin pnpm 9 — v10 added strict ignored-builds enforcement that breaks our build
 # even with package.json#pnpm.onlyBuiltDependencies. Bump when v10 ergonomics
 # stabilize and esbuild + @parcel/watcher are allowlistable cleanly.
